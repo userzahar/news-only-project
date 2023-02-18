@@ -29,9 +29,11 @@
 }
 
 .gallery__item {
+    
     display: flex;
     flex-direction: column;
-    max-width: 353px;
+    height: 675px;
+    max-width: 394px;
 }
 
 .gallery__item-tablet {
@@ -49,6 +51,7 @@
 }
 
 .gallery__header {
+    height: 132px;
     margin-bottom: 20px;
     font-family: 'Manrope', sans-serif;
     font-size: 32px;
@@ -57,6 +60,7 @@
 }
 
 .gallery__text {
+    height: 66px;
     margin-bottom: 20px;
     font-family: 'Manrope', sans-serif;
     font-size: 16px;
