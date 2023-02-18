@@ -11,6 +11,24 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./sass/index.scss" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="64x64"
+      href="./images/favicon-64x64.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="./images/favicon-16x16.png"
+    />
   </head>
   <body>
     <!-- ❗️❗️❗️ Add partials like so for every page -->
@@ -19,6 +37,9 @@
     <main>
       <div class="container">
         <include src="./partials/components/filter.html"></include>
+        <include src="./partials/common-elements/calendar.html"></include>
+      </div>
+      <div class="container">
         <include src="./partials/components/gallery.html"></include>
         <include src="./partials/components/pagination.html"></include>
       </div>
