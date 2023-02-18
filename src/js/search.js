@@ -25,9 +25,36 @@ function onBtnSubmit(e){
 
     getFetchByInput(inputValue).then((res)=> renderMarkup(res.response.docs))
 
+    if(res.response.docs === 0){
+        notFindNewsRender();
+    }
+
 
 }
 
 function renderMarkup(){
     console.log('render card')
+}
+
+function notFindNewsRender(){
+    return `  <p class="notfind-title">We haven’t found news from </br> this category</p>
+    <picture>
+        <source
+        srcset="./images/mobile.png 1x, ./images/mobile@2x.png 2x"
+        type="image/png"
+        media="(min-width: 480px)"/>
+
+        <source
+        srcset="./images/tablet.png 1x, ./images/tablet@2x.png 2x"
+        type="image/png"
+        media="(max-width: 768px)"/>
+
+        <source
+        srcset="./images/desctop.png 1x, ./images/desctop@2x.png 2x"
+        type="image/png"
+        media="(max-width: 1200px)"/>
+        
+        <img class="notfind-picture" src="./images/mobile.png" alt="no find Image" width="248" height="198">
+    </picture> `
+
 }
