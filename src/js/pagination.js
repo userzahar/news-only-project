@@ -56,7 +56,7 @@ const url = `https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=${
 const articleList = document.getElementById('article-list');
 const paginationContainer = document.getElementById('pagination');
 
-const ITEMS_PER_PAGE = 8;
+const ITEMS_PER_PAGE = 2;
 let articles = [];
 let totalPages = 0;
 let page = 1;
@@ -112,7 +112,7 @@ function renderArticles(page) {
       console.log(mediametadata);
       articleDiv.innerHTML = `
         <h2>${article.title}</h2>
-        <img src="${mediametadata[2].url}"/>
+        <img src="${mediametadata[1].url}"/>
         <p>${article.abstract}</p>
         <a href="${article.url}">Read more</a>
       `;
@@ -121,14 +121,33 @@ function renderArticles(page) {
   }
 
 
-
 function initPagination(totalPages) {
   const pagination = new tui.Pagination(paginationContainer, {
     totalItems: totalPages,
     itemsPerPage: 1,
     visiblePages: 3,
     centerAlign: true,
+    // firstItemClassName: 'tui-first-child',
+    // lastItemClassName: 'tui-last-child',
+    template: {
+      page: '<a href="#" class="tui-page-btn">{{page}}</a>',
+      currentPage: '<strong class="tui-page-btn tui-is-selected">{{page}}</strong>',
+      moveButton: 
+        '<a href="#" class="tui-page-btn tui-{{type}}">' +
+          '<span class="tui-ico-{{type}}">{{type}}</span>' +
+        '</a>',
+      disabledMoveButton:
+        '<span class="tui-page-btn tui-is-disabled tui-{{type}}">' +
+          '<span class="tui-ico-{{type}}">{{type}}</span>' +
+        '</span>',
+      moreButton:
+        '<a href="#" class="tui-page-btn tui-{{type}}-is-ellip">' +
+          '<span class="tui-ico-ellip">...</span>' +
+        '</a>'
+    },
   });
+
+  // pagination.disabledMoveButton('first');
 
   pagination.on('beforeMove', (event) => {
     const currentPage = event.page;
