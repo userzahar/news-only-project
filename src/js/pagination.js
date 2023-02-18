@@ -56,7 +56,7 @@ const url = `https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=${
 const articleList = document.getElementById('article-list');
 const paginationContainer = document.getElementById('pagination');
 
-const ITEMS_PER_PAGE = 2;
+const ITEMS_PER_PAGE = 8;
 let articles = [];
 let totalPages = 0;
 let page = 1;
@@ -81,11 +81,38 @@ function renderArticles(page) {
     const start = (page - 1) * ITEMS_PER_PAGE;
     const end = start + ITEMS_PER_PAGE;
     const pageArticles = articles.slice(start, end);
-    console.log(page);
     pageArticles.forEach(article => {
+      const imgUrl = article.media[0];
+      let mediametadata;
+      if (article.media.length > 0){
+        ({'media-metadata': mediametadata} = imgUrl);
+      } else {
+        mediametadata = [
+          {
+              "url": "https://grassrootjournalist.files.wordpress.com/2019/02/nyt-logo.png",
+              "format": "Standard Thumbnail",
+              "height": 75,
+              "width": 75
+          },
+          {
+              "url": "https://grassrootjournalist.files.wordpress.com/2019/02/nyt-logo.png",
+              "format": "mediumThreeByTwo210",
+              "height": 140,
+              "width": 210
+          },
+          {
+              "url": "https://grassrootjournalist.files.wordpress.com/2019/02/nyt-logo.png",
+              "format": "mediumThreeByTwo440",
+              "height": 293,
+              "width": 440
+          }
+      ];
+      };
       const articleDiv = document.createElement('div');
+      console.log(mediametadata);
       articleDiv.innerHTML = `
         <h2>${article.title}</h2>
+        <img src="${mediametadata[2].url}"/>
         <p>${article.abstract}</p>
         <a href="${article.url}">Read more</a>
       `;
@@ -99,7 +126,7 @@ function initPagination(totalPages) {
   const pagination = new tui.Pagination(paginationContainer, {
     totalItems: totalPages,
     itemsPerPage: 1,
-    visiblePages: 5,
+    visiblePages: 3,
     centerAlign: true,
   });
 
