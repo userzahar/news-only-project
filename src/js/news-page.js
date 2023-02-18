@@ -22,7 +22,7 @@ function createMarkup(arr) {
         // const dateFormat = new Intl.DateTimeFormat().format(date);
         // console.log(dateFormat);
         return ` <li class="gallery__item">
-                    <img class="gallery__img" src="https://photos-kl.kcdn.kz/kolesa-read/2019/05/02/1de33c0fb20453d858a24e776b78cd58f5bc7206-1193x671.jpg" alt="asia-woman" height='395' />
+                    <img class="gallery__img" src="${el.image}" alt="${el.alt}"/>
                     <h3 class="gallery__header">${el.title}</h3>
                     <p class="gallery__text">${el.descr}</p>
                     <div class="gallery__item-bottom_wrap">
@@ -37,19 +37,42 @@ function createMarkup(arr) {
 
 function normalizePop(feed) {
     const marks = feed.map(el => {
-        const descr = el.abstract.slice(0, 119) + '...';
+        function checkoutDescr() {
+            if (el.abstract.length > 120) {
+                return el.abstract.slice(0, 119) + '...';
+            }
+            return el.abstract;
+        }
+        const descr = checkoutDescr();
         const dateFormat = new Date(el.published_date);
         const date = new Intl.DateTimeFormat().format(dateFormat);
-        const title = el.title;
-        const source = el.url;
-        const image = function () {
-            if (el.media.lenght === 0) {
-                return 'pusto';
+        function ckeckoutTit() {
+            if (el.title.length > 50) {
+                return el.title.slice(0, 49) + '...';
             }
-            return 
-        };
-        console.log(image);
-        return { descr, date, title, source };
+            return el.title;
+        }
+        const title = ckeckoutTit();
+        console.log(title.length);
+        const source = el.url;
+        function checkoutImg() {
+            if (el.media.length === 0) {
+                return 'https://t3.ftcdn.net/jpg/04/62/93/66/360_F_462936689_BpEEcxfgMuYPfTaIAOC1tCDurmsno7Sp.jpg';
+            }
+
+            return el.media[0]['media-metadata'][2].url;
+        }
+        const image = checkoutImg();
+        function checkoutAlt() {
+            if (el.media.length === 0) {
+                return 'Image is no avalible';
+            }
+            return el.media[0].caption;
+        }
+        const alt = checkoutAlt();
+        // console.log(alt);
+        // console.log(image);
+        return { descr, date, title, source, image, alt };
     });
     // console.log(marks);
     return marks;
