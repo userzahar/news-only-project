@@ -10,6 +10,7 @@ const inputRef = document.querySelector('#search-field__input');
 formRef.addEventListener('submit', onSubmit);
 inputRef.addEventListener('input', createReq);
 
+const emptyCard = '<li class="gallery__item"></li>';
 
 
 async function fetchNews(request) {
@@ -22,7 +23,7 @@ async function fetchNews(request) {
 
 function createMarkup(arr) {
     const markup = arr.map((el) => {
-        return ` <li class="gallery__item">
+        return `<li class="gallery__item">
                     <img class="gallery__img" src="${el.image}" alt="${el.alt}"/>
                     <h3 class="gallery__header">${el.title}</h3>
                     <p class="gallery__text">${el.descr}</p>
@@ -31,9 +32,12 @@ function createMarkup(arr) {
                         <a href="${el.source}" target="_blank" rel="noreferrer noopener" class="gallery__link">Read more</a>
                     </div>
                 </li>`
-    }).join('');
+    });
+    markup.splice(2, 0, emptyCard);
+    const finishedMkp = markup.join('');
+    console.log(finishedMkp);
     // console.log(markup);
-    galleryRef.insertAdjacentHTML('beforeend', markup);
+    galleryRef.insertAdjacentHTML('beforeend', finishedMkp);
 };
 
 function normalizePop(feed) {
@@ -74,7 +78,7 @@ function normalizePop(feed) {
         // console.log(image);
         return { descr, date, title, source, image, alt };
     }).slice(0, 8);
-    // console.log(marks);
+    console.log(marks);
     return marks;
 
 }
@@ -154,3 +158,6 @@ function onSubmit(e) {
 };
 
 // const encoded = encodeURIComponent('crosswords & games'); //crosswords%20&%20games
+const are = [1, 2, 3];
+const are1 = are.join('')
+console.log(are1);
