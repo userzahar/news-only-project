@@ -36,7 +36,7 @@ function createMarkup(arr, page) {
                     <p class="gallery__category">Job searching</p>
                     <img class="gallery__img" src="${el.image}" alt="${el.alt}"/>
                     <div class='gallery__favorite'><p>Add to favorite</p>
-                    <button></button>
+                    <button type="button"></button>
                     <svg width='16' height='16'><use href="${ICON_HEART}"></use>
                     </svg></div>
                     <h3 class="gallery__header">${el.title}</h3>
@@ -102,7 +102,7 @@ function normalizePop(feed) {
 }
 
 function startFetch() {
-    fetchNews(reqUrl).then(res => {
+  fetchNews(reqUrl).then(res => {
     // console.log(res.results);
     totalItems = res.results.length;
     totalPages = Math.ceil(totalItems / itemsPerPage);
@@ -215,6 +215,5 @@ function initPagination(totalPages) {
     console.log(event);
     clearMarkup();
     createMarkup(markData, currentPage);
-});
+  });
 }
-

@@ -85,7 +85,7 @@
     background-color: #4440f6;
     color: #FFFFFF;
     position: absolute;
-    padding: 0 0 4px 8px;
+    padding: 4px 8px 4px 8px;
     height: 24;
     left: 0px;
     top: 40px;
@@ -102,5 +102,9 @@ top: 222px;
 color: #111321;
 background: #FFFFFF;
 border-radius: 20px;
-padding: 6px 12px 6px 12px
+padding: 6px 12px 6px 12px;
+  &>button{
+    width: 16px;
+    height: 16px;
+  }
 }
