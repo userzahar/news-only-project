@@ -105,7 +105,10 @@ function selectedCatagory(evt) {
   }
 
   const selectedCatagory = evt.target.dataset.name;
-  console.log(selectedCatagory);
+
+  const button = evt.target;
+  console.log(button);
+  button.classList.toggle('btn-color');
 
   return fetch(
     `https://api.nytimes.com/svc/news/v3/content/nyt/${selectedCatagory}.json?api-key=HunERBoFJkGno2ChxwL9g20UbJbd8EGL`
