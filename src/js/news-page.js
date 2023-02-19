@@ -31,14 +31,16 @@ function createMarkup(arr) {
                         <span class="gallery__date">${el.date}</span>
                         <a href="${el.source}" target="_blank" rel="noreferrer noopener" class="gallery__link">Read more</a>
                     </div>
-                </li>`;
-  });
-  markup.splice(2, 0, emptyCard);
-  const finishedMkp = markup.join('');
-  console.log(finishedMkp);
-  // console.log(markup);
-  galleryRef.insertAdjacentHTML('beforeend', finishedMkp);
-}
+                </li>`
+    });
+    markup.splice(2, 0, emptyCard);
+    const finishedMkp = markup.join('');
+    console.log(finishedMkp);
+    // console.log(markup);
+ 
+    galleryRef.insertAdjacentHTML('beforeend', finishedMkp);
+};
+
 
 function normalizePop(feed) {
   const marks = feed
