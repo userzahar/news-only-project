@@ -2,7 +2,7 @@ import onResize from './js/resize';
 import getCatagories from './js/filter';
 import './js/js-header/dark-mode';
 import './js/js-header/mobile-menu';
-
+import './js/pagination'
 import './js/js-read/read';
 
 window.addEventListener('DOMContentLoaded', event => mqHandler());
