@@ -5,6 +5,10 @@ import {
   categoriesForDesktop,
 } from './filter';
 export default function onResize(size, toRemove) {
+  refs.name.classList.add(`catagories__btn-name-${size}`);
+  for (sizeRemove of toRemove) {
+    refs.name.classList.remove(`catagories__btn-name-${sizeRemove}`);
+  }
   refs.btnCatagories.classList.add(`catagories__btn-${size}`);
   for (sizeRemove of toRemove) {
     refs.btnCatagories.classList.remove(`catagories__btn-${sizeRemove}`);

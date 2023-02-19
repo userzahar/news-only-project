@@ -1,5 +1,5 @@
 import onResize from './js/resize';
-import getNews from './js/filter';
+import getCatagories from './js/filter';
 import './js/js-header/dark-mode';
 import './js/js-header/mobile-menu';
 const screen = {

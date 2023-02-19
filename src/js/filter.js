@@ -10,7 +10,7 @@ function onBtnCatagoriesClick() {
   refs.btnCatagories.classList.toggle('is-open');
   refs.btnCatagories.setAttribute('aria-expanded', !expanded);
 
-  refs.btnCatagories.classList.add('btn-color');
+  // refs.btnCatagories.classList.add('btn-color');
 
   refs.listOfCatagories.classList.toggle('is-open');
 }
