@@ -1,5 +1,6 @@
 import myFunc from './js/onLigthButtonClick';
 import onResize from './js/resize';
+import getNews from './js/filter';
 const screen = {
   mobile : window.matchMedia( '(min-width: 480px)' ),
   tablet: window.matchMedia('(min-width: 768px)'),
