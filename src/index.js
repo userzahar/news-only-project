@@ -8,7 +8,7 @@ import './js/js-read/read';
 window.addEventListener('DOMContentLoaded', event => mqHandler());
 
 const screen = {
-  mobile: window.matchMedia('(min-width: 480px)'),
+  mobile: window.matchMedia('(min-width: 300px)'),
   tablet: window.matchMedia('(min-width: 768px)'),
   desktop: window.matchMedia('(min-width: 1280px)'),
 };
