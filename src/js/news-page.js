@@ -24,7 +24,7 @@ function createMarkup(arr) {
                     <p class="gallery__category">Job searching</p>
                     <img class="gallery__img" src="${el.image}" alt="${el.alt}"/>
                     <button class="gallery__favorite">Add to favorite <svg width="16" height="16">
-                    <use href="../images/symbol-defs.svg#icon-heart"></use></svg></button>
+                    <use href="../images/sprite.svg#icon-heart"></use></svg></button>
                     <h3 class="gallery__header">${el.title}</h3>
                     <p class="gallery__text">${el.descr}</p>
                     <div class="gallery__item-bottom_wrap">
