@@ -4,11 +4,19 @@ const reqUrl = `https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key
 const galleryRef = document.querySelector('.gallery__list');
 const formRef = document.querySelector('.search-field');
 const inputRef = document.querySelector('#search-field__input');
+const paginationContainer = document.getElementById('pagination');
 
 formRef.addEventListener('submit', onSubmit);
 inputRef.addEventListener('input', createReq);
 
 const emptyCard = '<li class="gallery__item"></li>';
+let totalItems = 0;
+let srartIndex = 0;
+let endIndex = 0;
+let page = 1;
+let totalPages = 0;
+let itemsPerPage = 8;
+let markData = {};
 
 async function fetchNews(request) {
   const response = await fetch(request);
@@ -18,10 +26,16 @@ async function fetchNews(request) {
   return response.json();
 }
 
-function createMarkup(arr) {
-  const markup = arr.map(el => {
-    return `<li class="gallery__item">
-                    <p class="gallery__category">Job searching</p>
+
+function createMarkup(arr, page) {
+
+    srartIndex = (page - 1) * itemsPerPage;
+    endIndex = srartIndex + itemsPerPage;
+    initPagination(totalPages);
+
+    const markup = arr.map((el) => {
+        return `<li class="gallery__item">
+
                     <img class="gallery__img" src="${el.image}" alt="${el.alt}"/>
                     <button class="gallery__favorite">Add to favorite <svg width="16" height="16">
                     <use href="../images/sprite.svg#icon-heart"></use></svg></button>
@@ -33,9 +47,11 @@ function createMarkup(arr) {
                     </div>
                 </li>`
     });
-    markup.splice(2, 0, emptyCard);
-    const finishedMkp = markup.join('');
-    console.log(finishedMkp);
+    const pageMarkup = markup.slice(srartIndex, endIndex);
+    // console.log(pageMarkup);
+    pageMarkup.splice(2, 0, emptyCard);
+    const finishedMkp = pageMarkup.join('');
+    // console.log(finishedMkp);
     // console.log(markup);
  
     galleryRef.insertAdjacentHTML('beforeend', finishedMkp);
@@ -74,25 +90,30 @@ function normalizePop(feed) {
         if (el.media.length === 0) {
           return 'Image is no avalible';
         }
-        return el.media[0].caption;
-      }
-      const alt = checkoutAlt();
-      // console.log(alt);
-      // console.log(image);
-      return { descr, date, title, source, image, alt };
-    })
-    .slice(0, 8);
-  console.log(marks);
-  return marks;
+
+        const alt = checkoutAlt();
+        // console.log(alt);
+        // console.log(image);
+        
+        return { descr, date, title, source, image, alt };
+    });
+    // console.log(marks);
+    markData = marks;
+    // console.log(markData);
+    return markData;
 }
 
 function startFetch() {
   fetchNews(reqUrl).then(res => {
     console.log(res.results);
+    totalItems = res.results.length;
+    totalPages = Math.ceil(totalItems / itemsPerPage);
+    normalizePop(res.results);
+    createMarkup(markData, page);
+    });
+    
+};
 
-    createMarkup(normalizePop(res.results));
-  });
-}
 startFetch();
 
 function clearMarkup() {
@@ -100,51 +121,54 @@ function clearMarkup() {
 }
 
 function normalizeSrc(feed) {
-  const marks = feed.map(el => {
-    function checkoutDescr() {
-      if (el.abstract.length > 120) {
-        return el.abstract.slice(0, 119) + '...';
-      }
-      return el.abstract;
-    }
-    const descr = checkoutDescr();
-    const dateFormat = new Date(el.pub_date);
-    const date = new Intl.DateTimeFormat().format(dateFormat);
-    function ckeckoutTit() {
-      if (el.headline.main.length > 50) {
-        return el.headline.main.slice(0, 49) + '...';
-      }
-      return el.headline.main;
-    }
-    const title = ckeckoutTit();
-    const source = el.web_url;
-    const imagePart = el.multimedia;
-
-    function checkoutImg() {
-      if (imagePart.length === 0) {
-        return 'https://t3.ftcdn.net/jpg/04/62/93/66/360_F_462936689_BpEEcxfgMuYPfTaIAOC1tCDurmsno7Sp.jpg';
-      }
-      return `https://static01.nyt.com/${imagePart[0].url}`;
-    }
-    const image = checkoutImg();
-    const alt = 'New`s image';
-    // console.log(image);
-    return { descr, date, title, source, image, alt };
-  });
-  // console.log(marks);
-  return marks;
+    const marks = feed.map(el => {
+         function checkoutDescr() {
+            if (el.abstract.length > 120) {
+                return el.abstract.slice(0, 119) + '...';
+            }
+            return el.abstract;
+        }
+        const descr = checkoutDescr();
+        const dateFormat = new Date(el.pub_date);
+        const date = new Intl.DateTimeFormat().format(dateFormat);
+        function ckeckoutTit() {
+            if (el.headline.main.length > 50) {
+                return el.headline.main.slice(0, 49) + '...';
+            }
+            return el.headline.main;
+        }
+        const title = ckeckoutTit();
+        const source = el.web_url;
+        const imagePart = el.multimedia;
+        
+        function checkoutImg() {
+            if (imagePart.length === 0) {
+                return 'https://t3.ftcdn.net/jpg/04/62/93/66/360_F_462936689_BpEEcxfgMuYPfTaIAOC1tCDurmsno7Sp.jpg';
+            }
+            return `https://static01.nyt.com/${imagePart[0].url}`;
+        }
+        const image = checkoutImg();
+        const alt = 'New`s image';
+        // console.log(image);
+        return { descr, date, title, source, image, alt };
+    });
+    // console.log(marks);
+    markData = marks;
+    return markData;
 }
 
 function onSearch(inputData) {
-  const searchUrl = `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${inputData}&api-key=${API_KEY}`;
-  fetchNews(searchUrl).then(res => {
-    console.log(res.response.docs);
-    if (res.response.docs.length === 0) {
-      console.log('Empty');
-    }
-    createMarkup(normalizeSrc(res.response.docs));
-  });
-}
+    const searchUrl = `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${inputData}&api-key=${API_KEY}`;
+    fetchNews(searchUrl).then(res => {
+        console.log(res.response.docs);
+        if (res.response.docs.length === 0) {
+            console.log('Empty');
+        }
+    normalizeSrc(res.response.docs);
+    createMarkup(markData, page);
+    });
+};
+
 
 // onSearch('ukraine');
 
@@ -160,6 +184,41 @@ function onSubmit(e) {
 }
 
 // const encoded = encodeURIComponent('crosswords & games'); //crosswords%20&%20games
-const are = [1, 2, 3];
-const are1 = are.join('');
-console.log(are1);
+
+// пагинация
+function initPagination(totalPages) {
+  const pagination = new tui.Pagination(paginationContainer, {
+    totalItems: totalPages,
+    itemsPerPage: 1,
+    visiblePages: 3,
+    centerAlign: true,
+    // firstItemClassName: 'tui-first-child',
+    // lastItemClassName: 'tui-last-child',
+    template: {
+      page: '<a href="#" class="tui-page-btn">{{page}}</a>',
+      currentPage: '<strong class="tui-page-btn tui-is-selected">{{page}}</strong>',
+      moveButton: 
+        '<a href="#" class="tui-page-btn tui-{{type}}">' +
+          '<span class="tui-ico-{{type}}">{{type}}</span>' +
+        '</a>',
+      disabledMoveButton:
+        '<span class="tui-page-btn tui-is-disabled tui-{{type}}">' +
+          '<span class="tui-ico-{{type}}">{{type}}</span>' +
+        '</span>',
+      moreButton:
+        '<a href="#" class="tui-page-btn tui-{{type}}-is-ellip">' +
+          '<span class="tui-ico-ellip">...</span>' +
+        '</a>'
+    },
+  });
+
+  // pagination.disabledMoveButton('first');
+
+  pagination.on('beforeMove', (event) => {
+    const currentPage = event.page;
+    console.log(event);
+    clearMarkup();
+    createMarkup(markData, currentPage);
+});
+}
+
