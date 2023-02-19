@@ -96,7 +96,7 @@ function normalizePop(feed) {
         // console.log(image);
         
         return { descr, date, title, source, image, alt };
-    });
+    };
     // console.log(marks);
     markData = marks;
     // console.log(markData);
