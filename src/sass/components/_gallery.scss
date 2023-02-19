@@ -97,14 +97,20 @@
     position: absolute;
     display: flex;
 height: 28px;
-left: 257px;
+right: 8px;
 top: 222px;
 color: #111321;
 background: #FFFFFF;
 border-radius: 20px;
 padding: 6px 12px 6px 12px;
+justify-content: space-between;
   &>button{
     width: 16px;
     height: 16px;
+    margin-left: 4px;
+  }
+  &>svg{
+    position: absolute;
+    right: 12px;
   }
 }
