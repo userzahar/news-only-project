@@ -3,6 +3,7 @@ const getCatagories = fetchCatagories();
 
 refs.btnCatagories.addEventListener('click', onBtnCatagoriesClick);
 refs.catagoriesItem.addEventListener('click', selectedCatagory);
+refs.listOfCatagories.addEventListener('click', selectedCatagory);
 
 function onBtnCatagoriesClick() {
   const expanded =
@@ -35,8 +36,8 @@ function categoriesForMobile() {
   });
 }
 
-function createListOfSections({ display_name }) {
-  return `<li class='catagories__item'><button data-name="${display_name}" class="catagory__btn">${display_name}</button></li>`;
+function createListOfSections({ section }) {
+  return `<li class='catagories__item'><button data-name="${section}" class="catagory__btn">${section}</button></li>`;
 }
 
 function categoriesForTablet() {
@@ -45,17 +46,17 @@ function categoriesForTablet() {
     const [first, second, third, forth, ...rest] = results;
     const markUp = `
     
-    <li class='catagories__item-tab'><button type="button" data-name="${first.display_name}" class="catagory__btn-tab">${first.display_name}</button></li>
-    <li class='catagories__item-tab'><button type="button" data-name="${second.display_name}" class="catagory__btn-tab">${second.display_name}</button></li>
-    <li class='catagories__item-tab'><button type="button" data-name="${third.display_name}" class="catagory__btn-tab">${third.display_name}</button></li>
-    <li class='catagories__item-tab'><button type="button" data-name="${forth.display_name}" class="catagory__btn-tab">${forth.display_name}</button></li>
+    <li class='catagories__item-tab'><button type="button" data-name="${first.section}" class="catagory__btn-tab">${first.section}</button></li>
+    <li class='catagories__item-tab'><button type="button" data-name="${second.section}" class="catagory__btn-tab">${second.section}</button></li>
+    <li class='catagories__item-tab'><button type="button" data-name="${third.section}" class="catagory__btn-tab">${third.section}</button></li>
+    <li class='catagories__item-tab'><button type="button" data-name="${forth.section}" class="catagory__btn-tab">${forth.section}</button></li>
     
     `;
 
     const list = `${rest
       .map(
         item =>
-          ` <button type="button" data-name="${item.display_name}" class="catagory__btn-list-tab">${item.display_name}</button>`
+          ` <button type="button" data-name="${item.section}" class="catagory__btn-list-tab">${item.section}</button>`
       )
       .join('')}`;
 
@@ -73,19 +74,19 @@ function categoriesForDesktop() {
     const [first, second, third, forth, fifth, sixth, ...rest] = results;
     const markUp = `
     
-    <li class='catagories__item-des'><button type="button" data-name="${first.display_name}" class="catagory__btn-tab">${first.display_name}</button></li>
-    <li class='catagories__item-des'><button type="button" data-name="${second.display_name}" class="catagory__btn-tab">${second.display_name}</button></li>
-    <li class='catagories__item-des'><button type="button" data-name="${third.display_name}" class="catagory__btn-tab">${third.display_name}</button></li>
-    <li class='catagories__item-des'><button type="button" data-name="${forth.display_name}" class="catagory__btn-tab">${forth.display_name}</button></li>
-    <li class='catagories__item-des'><button type="button" data-name="${fifth.display_name}" class="catagory__btn-tab">${fifth.display_name}</button></li>
-     <li class='catagories__item-des'><button type="button" data-name="${sixth.display_name}" class="catagory__btn-tab">${sixth.display_name}</button></li>
+    <li class='catagories__item-des'><button type="button" data-name="${first.section}" class="catagory__btn-tab">${first.section}</button></li>
+    <li class='catagories__item-des'><button type="button" data-name="${second.section}" class="catagory__btn-tab">${second.section}</button></li>
+    <li class='catagories__item-des'><button type="button" data-name="${third.section}" class="catagory__btn-tab">${third.section}</button></li>
+    <li class='catagories__item-des'><button type="button" data-name="${forth.section}" class="catagory__btn-tab">${forth.section}</button></li>
+    <li class='catagories__item-des'><button type="button" data-name="${fifth.section}" class="catagory__btn-tab">${fifth.section}</button></li>
+     <li class='catagories__item-des'><button type="button" data-name="${sixth.section}" class="catagory__btn-tab">${sixth.section}</button></li>
     
      `;
 
     const list = `${rest
       .map(
         item =>
-          `<button type="button" data-name="${item.display_name}" class="catagory__btn-list-tab">${item.display_name}</button>
+          `<button type="button" data-name="${item.section}" class="catagory__btn-list-tab">${item.section}</button>
           `
       )
       .join('')}`;
@@ -103,8 +104,12 @@ function selectedCatagory(evt) {
     return;
   }
 
-  const selectedCatagory = evt.target.dataset;
+  const selectedCatagory = evt.target.dataset.name;
   console.log(selectedCatagory);
+
+  return fetch(
+    `https://api.nytimes.com/svc/news/v3/content/nyt/${selectedCatagory}.json?api-key=HunERBoFJkGno2ChxwL9g20UbJbd8EGL`
+  ).then(res => res.json());
 }
 
 export { categoriesForMobile, categoriesForTablet, categoriesForDesktop };
