@@ -29,11 +29,12 @@
 }
 
 .gallery__item {
-    
+    position: relative;
     display: flex;
     flex-direction: column;
     height: 675px;
     width: 394px;
+    border-radius: 4px;
 }
 
 .gallery__item-tablet {
@@ -48,6 +49,7 @@
 .gallery__img {
     width: 100%;
     margin-bottom: 20px;
+    border-radius: 4px
 }
 
 .gallery__header {
@@ -83,4 +85,16 @@
     font-style: 14px;
     margin-right: 0;
     margin-left: auto;
+}
+.gallery__category{
+    @include font(12px, 16px);
+    background-color: #4440f6;
+    color: #FFFFFF;
+    position: absolute;
+    padding: 4px 8px;
+    height: 24;
+    left: 0px;
+    top: 40px;
+    background: rgba(68, 64, 247, 0.7);
+    border-radius: 0px 4px 4px 0px;
 }
