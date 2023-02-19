@@ -34,4 +34,16 @@ export default function onResize(size, toRemove) {
     }
     singleItem.classList.add(`gallery__item-${size}`);
   });
+  if (size === 'mobile') {
+    // refs.catagoriesItem.innerHTML = '';
+    categoriesForMobile();
+  }
+  if (size === 'tablet') {
+    // refs.catagoriesItem.innerHTML = '';
+    categoriesForTablet();
+  }
+  if (size === 'desktop') {
+    // refs.catagoriesItem.innerHTML = '';
+    categoriesForDesktop();
+  }
 }
