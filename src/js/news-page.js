@@ -103,7 +103,7 @@ function normalizePop(feed) {
 
 function startFetch() {
     fetchNews(reqUrl).then(res => {
-    console.log(res.results);
+    // console.log(res.results);
     totalItems = res.results.length;
     totalPages = Math.ceil(totalItems / itemsPerPage);
     normalizePop(res.results);
@@ -218,3 +218,5 @@ function initPagination(totalPages) {
     createMarkup(markData, currentPage);
 });
 }
+
+
