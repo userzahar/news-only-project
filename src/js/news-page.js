@@ -10,6 +10,7 @@ formRef.addEventListener('submit', onSubmit);
 inputRef.addEventListener('input', createReq);
 
 const emptyCard = '<li class="gallery__item"></li>';
+let weatherPos = 2;
 let totalItems = 0;
 let srartIndex = 0;
 let endIndex = 0;
@@ -217,4 +218,11 @@ function initPagination(totalPages) {
     createMarkup(markData, currentPage);
 });
 }
+console.log(weatherPos);
+function tabletChange() {
+    weatherPos = 1;
+    console.log(weatherPos);
+}
+
+export {tabletChange}
 
