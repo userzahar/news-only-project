@@ -1,0 +1,60 @@
+@import '../utils/variables';
+@import '../general-styles/general-classes';
+@import '../components/mobile_menu';
+
+.notfind-part {
+    text-align: center;
+    align-content: center;
+    justify-content: center;
+    margin-bottom: 59px;
+  
+    /* @media screen and (min-width: 768px) and (max-width: 1200px) {
+      margin-top: 48px;
+      margin-bottom: 101px;
+    }
+  
+    @media screen and (min-width: 768px) {
+      margin-top: 15px;
+      margin-bottom: 60px;
+    } */
+}
+.notfind-part-hidden {
+      display: none;
+    }
+  
+  
+  .notfind-title {
+    font-family: Manrope;
+    font-weight: 700;
+    color: var(--text-color);
+    font-size: 20px;
+    line-height: 27px;
+
+    /* @media screen and (min-width: 768px) and (max-width: 1200px) {
+      font-size: 40px;
+      line-height: 55px;
+    }
+    @media screen and (min-width: 1200px) {
+      font-size: 40px;
+      line-height: 55px;
+    } */
+  }
+  
+  .notfind-image {
+    margin-top: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 248px;
+    height: auto;
+
+     @media screen and (min-width: 768px) and (max-width: 1200px) {
+      width: 270px;
+    }
+  
+    @media screen and (min-width: 1200px) {
+      width: 350px;
+    } 
+  }
