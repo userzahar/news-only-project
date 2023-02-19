@@ -37,7 +37,7 @@ function createMarkup(arr, page) {
                     <img class="gallery__img" src="${el.image}" alt="${el.alt}"/>
                     <div class='gallery__favorite'><p>Add to favorite</p>
                     <button></button>
-                    <svg width='16' heigth='16'><use href="./image/sprite.svg#icon-heart"></use>
+                    <svg width='16' height='16'><use href="../images/sprite.svg#icon-heart"></use>
                     </svg></div>
                     <h3 class="gallery__header">${el.title}</h3>
                     <p class="gallery__text">${el.descr}</p>
