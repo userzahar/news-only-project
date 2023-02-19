@@ -50,7 +50,7 @@ function createMarkup(arr, page) {
   });
   const pageMarkup = markup.slice(srartIndex, endIndex);
   // console.log(pageMarkup);
-  pageMarkup.splice(2, 0, emptyCard);
+  pageMarkup.splice(weatherPos, 0, emptyCard);
   const finishedMkp = pageMarkup.join('');
   // console.log(finishedMkp);
   // console.log(markup);
@@ -213,16 +213,51 @@ function initPagination(totalPages) {
 
   pagination.on('beforeMove', event => {
     const currentPage = event.page;
-    console.log(event);
     clearMarkup();
     createMarkup(markData, currentPage);
 });
 }
-console.log(weatherPos);
-function tabletChange() {
-    weatherPos = 1;
-    console.log(weatherPos);
+
+function onScreenChange() {
+  weatherPos = 1;
+  clearMarkup();
+  createMarkup(markData, page);
 }
 
-export {tabletChange}
+export { onScreenChange };
+  
+function onCategorySrc(selectedCat) {
+  const searchUrl = `https://api.nytimes.com/svc/news/v3/content/all/${selectedCat}.json?api-key=${API_KEY}&limit=${itemsPerPage}&offset=0`;
+  fetchNews(searchUrl).then(res => {
+    console.log(res);
+    totalPages = res.num_results;
+    console.log(totalPages);
+    // if (res.response.docs.length === 0) {
+    //   console.log('Empty');
+    // }
+    // normalizeSrc(res.response.docs);
+    // createMarkup(markData, page);
+  });
+}
+
+onCategorySrc('arts');
+
+// const mql = window.matchMedia('(min-width: 1280px)');
+
+// function screenChange(e) {
+//   if (e.matches) {
+//     weatherPos = 2;
+//     console.log(weatherPos);
+//     console.log('bolshe 1280')
+//   } else {
+//     weatherPos = 1;
+//     clearMarkup();
+//     createMarkup(markData, page);
+//     console.log(weatherPos);
+//     console.log('menshe 1280')
+//   }
+// }
+
+// screenChange(mql);
+// mql.addEventListener('change', screenChange);
 

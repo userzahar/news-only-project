@@ -4,7 +4,7 @@ import {
   categoriesForTablet,
   categoriesForDesktop,
 } from './filter';
-import { tabletChange } from './news-page';
+// import { onScreenChange } from './news-page';
 export default function onResize(size, toRemove) {
   refs.name.classList.add(`catagories__btn-name-${size}`);
   for (sizeRemove of toRemove) {
@@ -42,7 +42,8 @@ export default function onResize(size, toRemove) {
   if (size === 'tablet') {
     // refs.catagoriesItem.innerHTML = '';
     categoriesForTablet();
-    tabletChange();
+    // onScreenChange();
+
   }
   if (size === 'desktop') {
     // refs.catagoriesItem.innerHTML = '';
