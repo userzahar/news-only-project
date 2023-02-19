@@ -5,6 +5,14 @@ import {
   categoriesForDesktop,
 } from './filter';
 export default function onResize(size, toRemove) {
+  refs.listOfCatagories.classList.add(`catagories__list-${size}`);
+  for (sizeRemove of toRemove) {
+    refs.listOfCatagories.classList.remove(`catagories__list-${sizeRemove}`);
+  }
+  refs.catagories.classList.add(`catagories-${size}`);
+  for (sizeRemove of toRemove) {
+    refs.catagories.classList.remove(`catagories-${sizeRemove}`);
+  }
   refs.name.classList.add(`catagories__btn-name-${size}`);
   for (sizeRemove of toRemove) {
     refs.name.classList.remove(`catagories__btn-name-${sizeRemove}`);

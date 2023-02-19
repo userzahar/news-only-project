@@ -48,8 +48,8 @@
                 style="stroke:var(--color5, #4440f7)" />
         </symbol>
         <symbol id="icon-Frame-up" viewBox="0 0 32 32">
-            <path fill="#4440f6" d="M3.76 25.143 0 21.664 16 6.857l16 14.807-3.76 3.479L16 13.84 3.76 25.143z"
-                style="fill:var(--color3, #4440f6)" />
+            <path fill="#FFFFFF" d="M3.76 25.143 0 21.664 16 6.857l16 14.807-3.76 3.479L16 13.84 3.76 25.143z"
+                 />
         </symbol>
         <symbol id="icon-Frame-down" viewBox="0 0 32 32">
             <path fill="#4440f6" d="M3.76 9.143 0 12.622l16 14.807 16-14.807-3.76-3.479L16 20.446 3.76 9.143z"

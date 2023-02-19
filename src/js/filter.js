@@ -10,7 +10,7 @@ function onBtnCatagoriesClick() {
   refs.btnCatagories.classList.toggle('is-open');
   refs.btnCatagories.setAttribute('aria-expanded', !expanded);
 
-  // refs.btnCatagories.classList.add('btn-color');
+  refs.btnCatagories.classList.toggle('btn-color');
 
   refs.listOfCatagories.classList.toggle('is-open');
 }
@@ -60,7 +60,7 @@ function categoriesForTablet() {
       .join('')}`;
 
     refs.name.textContent = 'Others';
-    refs.name.classList = 'catagories__btn-name-tab';
+    // refs.name.classList = 'catagories__btn-name-tab';
     refs.catagoriesItem.insertAdjacentHTML('afterbegin', markUp);
 
     refs.listOfCatagories.innerHTML = list;
@@ -73,12 +73,12 @@ function categoriesForDesktop() {
     const [first, second, third, forth, fifth, sixth, ...rest] = results;
     const markUp = `
     
-    <li class='catagories__item'><button type="button" data-name="${first.display_name}" class="catagory__btn-tab">${first.display_name}</button></li>
-    <li class='catagories__item'><button type="button" data-name="${second.display_name}" class="catagory__btn-tab">${second.display_name}</button></li>
-    <li class='catagories__item'><button type="button" data-name="${third.display_name}" class="catagory__btn-tab">${third.display_name}</button></li>
-    <li class='catagories__item'><button type="button" data-name="${forth.display_name}" class="catagory__btn-tab">${forth.display_name}</button></li>
-    <li class='catagories__item'><button type="button" data-name="${fifth.display_name}" class="catagory__btn-tab">${fifth.display_name}</button></li>
-     <li class='catagories__item'><button type="button" data-name="${sixth.display_name}" class="catagory__btn-tab">${sixth.display_name}</button></li>
+    <li class='catagories__item-des'><button type="button" data-name="${first.display_name}" class="catagory__btn-tab">${first.display_name}</button></li>
+    <li class='catagories__item-des'><button type="button" data-name="${second.display_name}" class="catagory__btn-tab">${second.display_name}</button></li>
+    <li class='catagories__item-des'><button type="button" data-name="${third.display_name}" class="catagory__btn-tab">${third.display_name}</button></li>
+    <li class='catagories__item-des'><button type="button" data-name="${forth.display_name}" class="catagory__btn-tab">${forth.display_name}</button></li>
+    <li class='catagories__item-des'><button type="button" data-name="${fifth.display_name}" class="catagory__btn-tab">${fifth.display_name}</button></li>
+     <li class='catagories__item-des'><button type="button" data-name="${sixth.display_name}" class="catagory__btn-tab">${sixth.display_name}</button></li>
     
      `;
 
@@ -91,7 +91,7 @@ function categoriesForDesktop() {
       .join('')}`;
 
     refs.name.textContent = 'Others';
-    refs.name.classList = 'catagories__btn-name-tab';
+    // refs.name.classList = 'catagories__btn-name-tab';
     refs.catagoriesItem.insertAdjacentHTML('afterbegin', markUp);
 
     refs.listOfCatagories.innerHTML = list;
