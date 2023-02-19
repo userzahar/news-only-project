@@ -1,3 +1,5 @@
+import {fetchNews} from './functions/fetchNews';
+
 const API_KEY = 'pJnhjsndYoXEeiZxcLsx3UMkwINk9PiQ';
 const reqUrl = `https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=${API_KEY}`;
 const ICON_HEART = '/sprite.f14d31f7.svg#icon-heart';
@@ -10,7 +12,7 @@ formRef.addEventListener('submit', onSubmit);
 inputRef.addEventListener('input', createReq);
 
 const emptyCard = '<li class="gallery__item"></li>';
-let totalItems = 0;
+// let totalItems = 0;
 let srartIndex = 0;
 let endIndex = 0;
 let page = 1;
@@ -18,13 +20,13 @@ let totalPages = 0;
 let itemsPerPage = 8;
 let markData = {};
 
-async function fetchNews(request) {
-  const response = await fetch(request);
-  if (!response.ok) {
-    throw new Error(responce.statusText);
-  }
-  return response.json();
-}
+// async function fetchNews(request) {
+//   const response = await fetch(request);
+//   if (!response.ok) {
+//     throw new Error(responce.statusText);
+//   }
+//   return response.json();
+// }
 
 function createMarkup(arr, page) {
   srartIndex = (page - 1) * itemsPerPage;
@@ -101,16 +103,31 @@ function normalizePop(feed) {
   return markData;
 }
 
-function startFetch() {
-  fetchNews(reqUrl).then(res => {
-    // console.log(res.results);
-    totalItems = res.results.length;
-    totalPages = Math.ceil(totalItems / itemsPerPage);
-    normalizePop(res.results);
-    createMarkup(markData, page);
-  });
-}
-startFetch();
+// function startFetch() {
+//   fetchNews(reqUrl).then(res => {
+//     // console.log(res.results);
+//     totalItems = res.results.length;
+//     totalPages = Math.ceil(totalItems / itemsPerPage);
+//     normalizePop(res.results);
+//     createMarkup(markData, page);
+//   });
+// }
+// startFetch();
+
+fetchNews('/svc/mostpopular/v2/viewed/1.json', {		
+    })		
+      .then(data => {		
+        totalItems = data.results.length;
+        totalPages = Math.ceil(data.results.length / itemsPerPage);		
+        normalizePop(data.results);
+        createMarkup(markData, page)		
+        // Do something with the data		
+    })		
+    .catch(error => {		
+        console.error(error);		
+        // Handle the error		
+    });
+
 
 function clearMarkup() {
   galleryRef.innerHTML = '';
@@ -153,17 +170,33 @@ function normalizeSrc(feed) {
   return markData;
 }
 
+// function onSearch(inputData) {
+//   const searchUrl = `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${inputData}&api-key=${API_KEY}`;
+//   fetchNews(searchUrl).then(res => {
+//     console.log(res.response.docs);
+//     if (res.response.docs.length === 0) {
+//       console.log('Empty');
+//     }
+//     normalizeSrc(res.response.docs);
+//     createMarkup(markData, page);
+//   });
+// }
+
 function onSearch(inputData) {
-  const searchUrl = `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${inputData}&api-key=${API_KEY}`;
-  fetchNews(searchUrl).then(res => {
-    console.log(res.response.docs);
-    if (res.response.docs.length === 0) {
-      console.log('Empty');
-    }
-    normalizeSrc(res.response.docs);
-    createMarkup(markData, page);
+  fetchNews('/svc/search/v2/articlesearch.json', {
+      q: inputData,
+      page: '1',
+    }).then(data => {
+      totalItems = data.response.docs.length;
+      totalPages = Math.ceil(data.response.docs.length / itemsPerPage);
+      console.log(totalItems);
+      if (data.response.docs.length === 0) {
+          // console.log('Empty');
+      }
+      normalizeSrc(data.response.docs)
+      createMarkup(markData, page);
   });
-}
+};
 
 // onSearch('ukraine');
 
@@ -212,7 +245,7 @@ function initPagination(totalPages) {
 
   pagination.on('beforeMove', event => {
     const currentPage = event.page;
-    console.log(event);
+    console.log(currentPage);
     clearMarkup();
     createMarkup(markData, currentPage);
   });
