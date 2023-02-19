@@ -1,13 +1,13 @@
-.container {
-    min-width: 320px;
-    max-width: 1200px;
-    padding: 40px 16px;
-    margin: 0 auto;
+// .container {
+//     min-width: 320px;
+//     max-width: 1200px;
+//     padding: 40px 16px;
+//     margin: 0 auto;
 
-    @include tablet {
-        padding: 48px 16px;
-    }
-}
+//     @include tablet {
+//         padding: 48px 16px;
+//     }
+// }
 
 .gallery__container {
     display: flex;
