@@ -1,8 +1,9 @@
-import myFunc from './js/onLigthButtonClick';
 import onResize from './js/resize';
 import getNews from './js/filter';
+import './js/js-header/dark-mode';
+import './js/js-header/mobile-menu';
 const screen = {
-  mobile : window.matchMedia( '(min-width: 480px)' ),
+  mobile: window.matchMedia('(min-width: 480px)'),
   tablet: window.matchMedia('(min-width: 768px)'),
   desktop: window.matchMedia('(min-width: 1200px)'),
 };
@@ -21,6 +22,4 @@ function mqHandler() {
   }
 
   onResize(size, toRemove);
-  
 }
-
