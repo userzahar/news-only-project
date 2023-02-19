@@ -1,4 +1,5 @@
 import onResize from './js/resize';
+import getCatagories from './js/filter';
 import './js/js-header/dark-mode';
 import './js/js-header/mobile-menu';
 window.addEventListener('DOMContentLoaded', (event) => mqHandler());
