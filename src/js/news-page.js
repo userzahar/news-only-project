@@ -1,8 +1,6 @@
 const API_KEY = 'pJnhjsndYoXEeiZxcLsx3UMkwINk9PiQ';
 const reqUrl = `https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=${API_KEY}`;
 
-
-
 const galleryRef = document.querySelector('.gallery__list');
 const formRef = document.querySelector('.search-field');
 const inputRef = document.querySelector('#search-field__input');
@@ -20,14 +18,14 @@ let totalPages = 0;
 let itemsPerPage = 8;
 let markData = {};
 
-
 async function fetchNews(request) {
-    const response = await fetch(request);
-        if (!response.ok) {
-        throw new Error(responce.statusText);
-        };
-    return response.json();
-    };
+  const response = await fetch(request);
+  if (!response.ok) {
+    throw new Error(responce.statusText);
+  }
+  return response.json();
+}
+
 
 function createMarkup(arr, page) {
 
@@ -37,7 +35,10 @@ function createMarkup(arr, page) {
 
     const markup = arr.map((el) => {
         return `<li class="gallery__item">
+
                     <img class="gallery__img" src="${el.image}" alt="${el.alt}"/>
+                    <button class="gallery__favorite">Add to favorite <svg width="16" height="16">
+                    <use href="../images/sprite.svg#icon-heart"></use></svg></button>
                     <h3 class="gallery__header">${el.title}</h3>
                     <p class="gallery__text">${el.descr}</p>
                     <div class="gallery__item-bottom_wrap">
@@ -52,42 +53,44 @@ function createMarkup(arr, page) {
     const finishedMkp = pageMarkup.join('');
     // console.log(finishedMkp);
     // console.log(markup);
+ 
     galleryRef.insertAdjacentHTML('beforeend', finishedMkp);
 };
 
+
 function normalizePop(feed) {
-    const marks = feed.map(el => {
-        function checkoutDescr() {
-            if (el.abstract.length > 120) {
-                return el.abstract.slice(0, 119) + '...';
-            }
-            return el.abstract;
+  const marks = feed
+    .map(el => {
+      function checkoutDescr() {
+        if (el.abstract.length > 120) {
+          return el.abstract.slice(0, 119) + '...';
         }
-        const descr = checkoutDescr();
-        const dateFormat = new Date(el.published_date);
-        const date = new Intl.DateTimeFormat().format(dateFormat);
-        function ckeckoutTit() {
-            if (el.title.length > 50) {
-                return el.title.slice(0, 49) + '...';
-            }
-            return el.title;
+        return el.abstract;
+      }
+      const descr = checkoutDescr();
+      const dateFormat = new Date(el.published_date);
+      const date = new Intl.DateTimeFormat().format(dateFormat);
+      function ckeckoutTit() {
+        if (el.title.length > 50) {
+          return el.title.slice(0, 49) + '...';
         }
-        const title = ckeckoutTit();
-        // console.log(title.length);
-        const source = el.url;
-        function checkoutImg() {
-            if (el.media.length === 0) {
-                return 'https://t3.ftcdn.net/jpg/04/62/93/66/360_F_462936689_BpEEcxfgMuYPfTaIAOC1tCDurmsno7Sp.jpg';
-            }
-            return el.media[0]['media-metadata'][2].url;
+        return el.title;
+      }
+      const title = ckeckoutTit();
+      // console.log(title.length);
+      const source = el.url;
+      function checkoutImg() {
+        if (el.media.length === 0) {
+          return 'https://t3.ftcdn.net/jpg/04/62/93/66/360_F_462936689_BpEEcxfgMuYPfTaIAOC1tCDurmsno7Sp.jpg';
         }
-        const image = checkoutImg();
-        function checkoutAlt() {
-            if (el.media.length === 0) {
-                return 'Image is no avalible';
-            }
-            return el.media[0].caption;
+        return el.media[0]['media-metadata'][2].url;
+      }
+      const image = checkoutImg();
+      function checkoutAlt() {
+        if (el.media.length === 0) {
+          return 'Image is no avalible';
         }
+
         const alt = checkoutAlt();
         // console.log(alt);
         // console.log(image);
@@ -98,11 +101,10 @@ function normalizePop(feed) {
     markData = marks;
     // console.log(markData);
     return markData;
-
 }
 
 function startFetch() {
-    fetchNews(reqUrl).then(res => {
+  fetchNews(reqUrl).then(res => {
     console.log(res.results);
     totalItems = res.results.length;
     totalPages = Math.ceil(totalItems / itemsPerPage);
@@ -111,11 +113,12 @@ function startFetch() {
     });
     
 };
+
 startFetch();
 
 function clearMarkup() {
-    galleryRef.innerHTML = '';
-};
+  galleryRef.innerHTML = '';
+}
 
 function normalizeSrc(feed) {
     const marks = feed.map(el => {
@@ -166,19 +169,19 @@ function onSearch(inputData) {
     });
 };
 
+
 // onSearch('ukraine');
 
 let searchReq = '';
 function createReq(e) {
-    searchReq = e.target.value.trim();
-    // console.log(searchReq);
-};
+  searchReq = e.target.value.trim();
+  // console.log(searchReq);
+}
 function onSubmit(e) {
-    e.preventDefault();
-    clearMarkup();
-    onSearch(searchReq);
-
-};
+  e.preventDefault();
+  clearMarkup();
+  onSearch(searchReq);
+}
 
 // const encoded = encodeURIComponent('crosswords & games'); //crosswords%20&%20games
 
@@ -218,3 +221,4 @@ function initPagination(totalPages) {
     createMarkup(markData, currentPage);
 });
 }
+
