@@ -37,6 +37,7 @@ function createMarkup(arr) {
     const finishedMkp = markup.join('');
     console.log(finishedMkp);
     // console.log(markup);
+ 
     galleryRef.insertAdjacentHTML('beforeend', finishedMkp);
 };
 
