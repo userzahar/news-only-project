@@ -6,11 +6,19 @@ const reqUrl = `https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key
 const galleryRef = document.querySelector('.gallery__list');
 const formRef = document.querySelector('.search-field');
 const inputRef = document.querySelector('#search-field__input');
+const paginationContainer = document.getElementById('pagination');
 
 formRef.addEventListener('submit', onSubmit);
 inputRef.addEventListener('input', createReq);
 
 const emptyCard = '<li class="gallery__item"></li>';
+let totalItems = 0;
+let srartIndex = 0;
+let endIndex = 0;
+let page = 1;
+let totalPages = 0;
+let itemsPerPage = 8;
+let markData = {};
 
 
 async function fetchNews(request) {
@@ -21,7 +29,12 @@ async function fetchNews(request) {
     return response.json();
     };
 
-function createMarkup(arr) {
+function createMarkup(arr, page) {
+
+    srartIndex = (page - 1) * itemsPerPage;
+    endIndex = srartIndex + itemsPerPage;
+    initPagination(totalPages);
+
     const markup = arr.map((el) => {
         return `<li class="gallery__item">
                     <img class="gallery__img" src="${el.image}" alt="${el.alt}"/>
@@ -33,9 +46,11 @@ function createMarkup(arr) {
                     </div>
                 </li>`
     });
-    markup.splice(2, 0, emptyCard);
-    const finishedMkp = markup.join('');
-    console.log(finishedMkp);
+    const pageMarkup = markup.slice(srartIndex, endIndex);
+    // console.log(pageMarkup);
+    pageMarkup.splice(2, 0, emptyCard);
+    const finishedMkp = pageMarkup.join('');
+    // console.log(finishedMkp);
     // console.log(markup);
     galleryRef.insertAdjacentHTML('beforeend', finishedMkp);
 };
@@ -76,19 +91,25 @@ function normalizePop(feed) {
         const alt = checkoutAlt();
         // console.log(alt);
         // console.log(image);
+        
         return { descr, date, title, source, image, alt };
-    }).slice(0, 8);
-    console.log(marks);
-    return marks;
+    });
+    // console.log(marks);
+    markData = marks;
+    // console.log(markData);
+    return markData;
 
 }
 
 function startFetch() {
     fetchNews(reqUrl).then(res => {
     console.log(res.results);
-        
-    createMarkup(normalizePop(res.results));
+    totalItems = res.results.length;
+    totalPages = Math.ceil(totalItems / itemsPerPage);
+    normalizePop(res.results);
+    createMarkup(markData, page);
     });
+    
 };
 startFetch();
 
@@ -129,7 +150,8 @@ function normalizeSrc(feed) {
         return { descr, date, title, source, image, alt };
     });
     // console.log(marks);
-    return marks;
+    markData = marks;
+    return markData;
 }
 
 function onSearch(inputData) {
@@ -139,7 +161,8 @@ function onSearch(inputData) {
         if (res.response.docs.length === 0) {
             console.log('Empty');
         }
-    createMarkup(normalizeSrc(res.response.docs));
+    normalizeSrc(res.response.docs);
+    createMarkup(markData, page);
     });
 };
 
@@ -158,6 +181,40 @@ function onSubmit(e) {
 };
 
 // const encoded = encodeURIComponent('crosswords & games'); //crosswords%20&%20games
-const are = [1, 2, 3];
-const are1 = are.join('')
-console.log(are1);
+
+// пагинация
+function initPagination(totalPages) {
+  const pagination = new tui.Pagination(paginationContainer, {
+    totalItems: totalPages,
+    itemsPerPage: 1,
+    visiblePages: 3,
+    centerAlign: true,
+    // firstItemClassName: 'tui-first-child',
+    // lastItemClassName: 'tui-last-child',
+    template: {
+      page: '<a href="#" class="tui-page-btn">{{page}}</a>',
+      currentPage: '<strong class="tui-page-btn tui-is-selected">{{page}}</strong>',
+      moveButton: 
+        '<a href="#" class="tui-page-btn tui-{{type}}">' +
+          '<span class="tui-ico-{{type}}">{{type}}</span>' +
+        '</a>',
+      disabledMoveButton:
+        '<span class="tui-page-btn tui-is-disabled tui-{{type}}">' +
+          '<span class="tui-ico-{{type}}">{{type}}</span>' +
+        '</span>',
+      moreButton:
+        '<a href="#" class="tui-page-btn tui-{{type}}-is-ellip">' +
+          '<span class="tui-ico-ellip">...</span>' +
+        '</a>'
+    },
+  });
+
+  // pagination.disabledMoveButton('first');
+
+  pagination.on('beforeMove', (event) => {
+    const currentPage = event.page;
+    console.log(event);
+    clearMarkup();
+    createMarkup(markData, currentPage);
+});
+}
