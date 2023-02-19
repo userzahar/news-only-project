@@ -371,7 +371,8 @@ input:checked + .slider:before {
 }
 .bar1, .bar2, .bar3 {
   width: 18px;
-  height: 1px;
+  height: 2px;
   background-color: #333;
-  margin: 4px 0;
+  margin: 3.5px 0;
+    border-radius: 34%;
 }

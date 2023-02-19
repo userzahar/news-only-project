@@ -25,7 +25,6 @@
   flex-wrap: wrap;
 }
 .gallery__item {
-    position: relative;
     display: flex;
     flex-direction: column;
     height: 675px;
@@ -43,9 +42,7 @@
 
 .gallery__img {
     width: 100%;
-    margin-bottom: 20px;
     border-radius: 4px
-
 }
 
 .gallery__header {
@@ -97,14 +94,24 @@
     position: absolute;
     display: flex;
 height: 28px;
-left: 257px;
-top: 222px;
+right: 8px;
+bottom: 12px;
 color: #111321;
 background: #FFFFFF;
 border-radius: 20px;
 padding: 6px 12px 6px 12px;
+justify-content: space-between;
   &>button{
     width: 16px;
     height: 16px;
+    margin-left: 4px;
   }
+  &>svg{
+    position: absolute;
+    right: 12px;
+  }
+}
+.gallery__thumb{
+  position: relative;
+  margin-bottom: 20px;
 }
