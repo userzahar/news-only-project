@@ -6,4 +6,9 @@ export const refs = {
   btnCatagories: document.querySelector('.catagories__btn'),
   name: document.querySelector('.catagories__btn-name'),
   catagoriesItem: document.querySelector('.catagories__item-container'),
+  item: document.querySelectorAll('.gallery__list li'),
+  galleryList: document.querySelector('.gallery__list'),
+  container: document.querySelectorAll('.container'),
+  headerContainer: document.querySelector('.header-container'),
+  logo: document.querySelector('.logo'),
 };
