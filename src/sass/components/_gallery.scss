@@ -25,11 +25,10 @@
   flex-wrap: wrap;
 }
 .gallery__item {
-    position: relative;
     display: flex;
     flex-direction: column;
     height: 675px;
-    width: 394px;
+    max-width: 394px;
     border-radius: 4px;
 }
 
@@ -43,9 +42,7 @@
 
 .gallery__img {
     width: 100%;
-    margin-bottom: 20px;
     border-radius: 4px
-
 }
 
 .gallery__header {
@@ -54,7 +51,6 @@
   font-family: 'Manrope', sans-serif;
   font-size: 32px;
   line-height: 1.4;
-  color: #111321;
 }
 
 .gallery__text {
@@ -63,7 +59,6 @@
   font-family: 'Manrope', sans-serif;
   font-size: 16px;
   line-height: 1.4;
-  color: #111321;
 }
 
 .gallery__item-bottom_wrap {
@@ -87,7 +82,7 @@
     background-color: #4440f6;
     color: #FFFFFF;
     position: absolute;
-    padding: 0 0 4px 8px;
+    padding: 4px 8px 4px 8px;
     height: 24;
     left: 0px;
     top: 40px;
@@ -97,12 +92,27 @@
 .gallery__favorite{
     @include font(12px, 16px);
     position: absolute;
-width: 126px;
+    display: flex;
 height: 28px;
-left: 257px;
-top: 222px;
+right: 8px;
+bottom: 12px;
 color: #111321;
 background: #FFFFFF;
 border-radius: 20px;
-padding: 0 0 6px 12px;
+padding: 6px 12px 6px 12px;
+justify-content: space-between;
+  &>button{
+    width: 16px;
+    height: 16px;
+    margin-left: 4px;
+  }
+  &>svg{
+    position: absolute;
+    right: 12px;
+    cursor: pointer;
+  }
+}
+.gallery__thumb{
+  position: relative;
+  margin-bottom: 20px;
 }

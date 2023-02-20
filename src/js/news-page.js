@@ -1,6 +1,6 @@
 const API_KEY = 'pJnhjsndYoXEeiZxcLsx3UMkwINk9PiQ';
 const reqUrl = `https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=${API_KEY}`;
-
+const ICON_HEART = '/sprite.f14d31f7.svg#icon-heart';
 const galleryRef = document.querySelector('.gallery__list');
 const formRef = document.querySelector('.search-field');
 const inputRef = document.querySelector('#search-field__input');
@@ -33,7 +33,12 @@ function createMarkup(arr, page) {
 
   const markup = arr.map(el => {
     return `<li class="gallery__item">
+                   <div class="gallery__thumb"> <p class="gallery__category">Job searching</p>
                     <img class="gallery__img" src="${el.image}" alt="${el.alt}"/>
+                    <div class='gallery__favorite'><p>Add to favorite</p>
+                    <button type="button"></button>
+                    <svg width='16' height='16'><use href="${ICON_HEART}"></use>
+                    </svg></div></div>
                     <h3 class="gallery__header">${el.title}</h3>
                     <p class="gallery__text">${el.descr}</p>
                     <div class="gallery__item-bottom_wrap">
