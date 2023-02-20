@@ -1,4 +1,5 @@
 import { mqHandler } from './functions/mqHandler'
+import { refs } from './refs';
 
 const API_KEY = 'pJnhjsndYoXEeiZxcLsx3UMkwINk9PiQ';
 const reqUrl = `https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=${API_KEY}`;
@@ -25,6 +26,7 @@ async function fetchNews(request) {
   if (!response.ok) {
     throw new Error(responce.statusText);
   }
+
   return response.json();
 }
 
@@ -54,7 +56,7 @@ function createMarkup(arr, page) {
   pageMarkup.splice(2, 0, emptyCard);
   const finishedMkp = pageMarkup.join('');
   // console.log(finishedMkp);
-  console.log("BEFORE");
+  console.log("Arr", arr);
   galleryRef.insertAdjacentHTML('beforeend', finishedMkp);
   mqHandler(); //додана функція для адаптивного відображення.
 }
