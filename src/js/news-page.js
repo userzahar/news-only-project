@@ -11,7 +11,7 @@ import {markData} from './functions/markup';
 import {itemsPerPage} from './functions/markup';
 import {page} from './functions/markup';
 
-
+let totalItems = 0;
 let totalPages = 0;
 export {totalPages};
 
@@ -32,6 +32,7 @@ fetchNews('/svc/mostpopular/v2/viewed/1.json', {
     })		
       .then(data => {		
         totalItems = data.results.length;
+        
         totalPages = Math.ceil(data.results.length / itemsPerPage);		
         normalizePop(data.results);
         // console.log(page);
@@ -50,6 +51,7 @@ function onSearch(inputData) {
       page: '1',
     }).then(data => {
       totalItems = data.response.docs.length;
+      
       totalPages = Math.ceil(data.response.docs.length / itemsPerPage);
       // console.log(totalItems);
       if (data.response.docs.length === 0) {

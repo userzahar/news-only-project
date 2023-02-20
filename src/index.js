@@ -59,5 +59,6 @@ function toLS(e) {
 
   localStorage.setItem('read-news', LSReadNewsJSON);
 }
+
 console.dir(document);
 
