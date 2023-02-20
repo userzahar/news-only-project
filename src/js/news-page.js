@@ -5,11 +5,11 @@ const galleryRef = document.querySelector('.gallery__list');
 const formRef = document.querySelector('.search-field');
 const inputRef = document.querySelector('#search-field__input');
 const paginationContainer = document.getElementById('pagination');
-
+import {weather} from './weather';
 formRef.addEventListener('submit', onSubmit);
 inputRef.addEventListener('input', createReq);
 
-const emptyCard = '<li class="gallery__item"></li>';
+const emptyCard = `<li class="gallery__item">${weather}</li>`;
 let totalItems = 0;
 let srartIndex = 0;
 let endIndex = 0;
