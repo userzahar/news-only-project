@@ -21,9 +21,6 @@ body.darkMode {
   display: flex;
   align-items: center;
 
-  // @media screen and (min-width: $pre_tablet) {
-  //   align-items: none;
-  // }
 
   &-tablet,
   &-desktop {
@@ -51,33 +48,29 @@ body.darkMode {
     line-height: calc(57 / 42);
   }
 
-  // @media screen and (min-width: $pre_tablet) {
-  //   padding-top: 32px;
-  //   padding-bottom: 30px;
-  //   font-size: 32px;
-  //   line-height: calc(44 / 32);
-  // }
 
-  // @media screen and (min-width: $pre_desktop) {
-  //   padding: 28px 0;
-  //   font-size: 42px;
-  //   line-height: calc(57 / 42);
-  // }
 }
 
 .navbar {
   display: none;
+  
+  &-mobile {
+    display: none;
+  }
 
-  @media screen and (min-width: $pre_tablet) {
+  &-tablet {
     display: flex;
     margin-left: 48px;
     gap: 44px;
   }
 
-  @media screen and (min-width: $pre_desktop) {
+
+  &-desktop {
+    display: flex;
     margin-left: 102px;
     gap: 69px;
   }
+
 }
 
 .navbar__item {
@@ -363,16 +356,21 @@ input:checked + .slider:before {
   // fill: var(--switcher-gray);
   fill: var(--switcher-gray-moon);
 }
-.burger-menu{
+.burger-menu {
   display: inline-block;
   cursor: pointer;
   top: 50%;
   left: 50%;
+  @media screen and (min-width: 768px) {
+    display: none;
 }
-.bar1, .bar2, .bar3 {
+}
+.bar1,
+.bar2,
+.bar3 {
   width: 18px;
   height: 2px;
   background-color: #333;
   margin: 3.5px 0;
-    border-radius: 34%;
+  border-radius: 34%;
 }

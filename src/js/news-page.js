@@ -1,3 +1,5 @@
+import { mqHandler } from './functions/mqHandler'
+
 const API_KEY = 'pJnhjsndYoXEeiZxcLsx3UMkwINk9PiQ';
 const reqUrl = `https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=${API_KEY}`;
 const ICON_HEART = '/sprite.f14d31f7.svg#icon-heart';
@@ -7,10 +9,11 @@ const inputRef = document.querySelector('#search-field__input');
 const paginationContainer = document.getElementById('pagination');
 const errorFind = document.querySelector(".notfind-part");
 
+import {weather} from './weather';
 formRef.addEventListener('submit', onSubmit);
 inputRef.addEventListener('input', createReq);
 
-const emptyCard = '<li class="gallery__item"></li>';
+const emptyCard = `<li class="gallery__item">${weather}</li>`;
 let totalItems = 0;
 let srartIndex = 0;
 let endIndex = 0;
@@ -53,8 +56,9 @@ function createMarkup(arr, page) {
   pageMarkup.splice(2, 0, emptyCard);
   const finishedMkp = pageMarkup.join('');
   // console.log(finishedMkp);
-  // console.log(markup);
+  console.log("BEFORE");
   galleryRef.insertAdjacentHTML('beforeend', finishedMkp);
+  mqHandler(); //додана функція для адаптивного відображення.
 }
 
 function normalizePop(feed) {
@@ -200,6 +204,7 @@ function initPagination(totalPages) {
       moveButton:
         '<a href="#" class="tui-page-btn tui-{{type}}">' +
         '<span class="tui-ico-{{type}}">{{type}}</span>' +
+         
         '</a>',
       disabledMoveButton:
         '<span class="tui-page-btn tui-is-disabled tui-{{type}}">' +
@@ -221,3 +226,4 @@ function initPagination(totalPages) {
     createMarkup(markData, currentPage);
   });
 }
+
