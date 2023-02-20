@@ -196,6 +196,7 @@ function initPagination(totalPages) {
       moveButton:
         '<a href="#" class="tui-page-btn tui-{{type}}">' +
         '<span class="tui-ico-{{type}}">{{type}}</span>' +
+         
         '</a>',
       disabledMoveButton:
         '<span class="tui-page-btn tui-is-disabled tui-{{type}}">' +
@@ -217,3 +218,4 @@ function initPagination(totalPages) {
     createMarkup(markData, currentPage);
   });
 }
+

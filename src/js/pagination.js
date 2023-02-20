@@ -39,3 +39,5 @@ function initPagination(totalPages) {
   });
 
 }
+
+
