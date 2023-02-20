@@ -1,3 +1,7 @@
+
+import { mqHandler } from './functions/mqHandler'
+import { refs } from './refs';
+
 import {fetchNews} from './functions/fetchNews';
 import {createMarkup} from './functions/markup';
 import {clearMarkup} from './functions/markup';
@@ -7,12 +11,15 @@ import {markData} from './functions/markup';
 import {itemsPerPage} from './functions/markup';
 import {page} from './functions/markup';
 
+
 let totalPages = 0;
 export {totalPages};
 
 
+
 const formRef = document.querySelector('.search-field');
 const inputRef = document.querySelector('#search-field__input');
+
 
 
 formRef.addEventListener('submit', onSubmit);

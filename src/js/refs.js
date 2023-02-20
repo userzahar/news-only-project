@@ -12,5 +12,6 @@ export const refs = {
   headerContainer: document.querySelectorAll('.header-container'),
   logo: document.querySelector('.logo'),
   paginationContainer: document.getElementById('pagination'),
-  navBar: document.querySelector('.navbar')
+  navBar: document.querySelector('.navbar'),
+  // readMoreLink: document.querySelectorAll('gallery__link')
 };
