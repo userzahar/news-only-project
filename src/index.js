@@ -2,11 +2,7 @@ import onResize from './js/resize';
 import getCatagories from './js/filter';
 import './js/js-header/dark-mode';
 import './js/js-header/mobile-menu';
-
-import './js/pagination'
-
 import { mqHandler } from './js/functions/mqHandler';
-
 import './js/js-read/read';
 import './js/functions/eventLiCard';
 
