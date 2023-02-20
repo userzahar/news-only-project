@@ -4,7 +4,12 @@ import getCatagories from './js/filter';
 import './js/js-header/dark-mode';
 import './js/js-header/mobile-menu';
 import './js/js-read/read';
+
+import './js/functions/eventLiCard';
+import { calendar } from './js/calendar';
+
 import { refs } from './js/refs';
+
 
 if (
   window.location.pathname === '/favorite.html' ||
@@ -14,6 +19,7 @@ if (
 }
 
 console.log(window.location);
+
 refs.galleryList.addEventListener('click', toLS);
 let readNews;
 let fromLS = localStorage.getItem('read-news');
@@ -53,3 +59,6 @@ function toLS(e) {
 
   localStorage.setItem('read-news', LSReadNewsJSON);
 }
+
+console.dir(document);
+
