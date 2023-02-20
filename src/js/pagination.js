@@ -1,11 +1,9 @@
-import {createMarkup} from './functions/markup';
-import {clearMarkup} from './functions/markup';
-import {markData} from './functions/markup';
-// import {normalizeSrc}  from './functions/markup';
+import { refs } from "./refs";
+import { mqHandler } from "./functions/mqHandler";
 
-const paginationContainer = document.getElementById('pagination');
+
 function initPagination(totalPages) {
-  const pagination = new tui.Pagination(paginationContainer, {
+  const pagination = new tui.Pagination(refs.paginationContainer, {
     totalItems: totalPages,
     itemsPerPage: 1,
     visiblePages: 3,
@@ -13,7 +11,8 @@ function initPagination(totalPages) {
     pagination.on('beforeMove', event => {
     const currentPage = event.page;
     clearMarkup();
-    createMarkup(markData, currentPage);
+      createMarkup(markData, currentPage);
+      mqHandler();
   });
 }
 export {initPagination};
