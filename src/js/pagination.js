@@ -1,33 +1,19 @@
+import {createMarkup} from './functions/markup';
+import {clearMarkup} from './functions/markup';
+import {markData} from './functions/markup';
+// import {normalizeSrc}  from './functions/markup';
+
+const paginationContainer = document.getElementById('pagination');
 function initPagination(totalPages) {
   const pagination = new tui.Pagination(paginationContainer, {
     totalItems: totalPages,
     itemsPerPage: 1,
     visiblePages: 3,
-    centerAlign: true,
-    // firstItemClassName: 'tui-first-child',
-    // lastItemClassName: 'tui-last-child',
-    template: {
-      page: '<a href="#" class="tui-page-btn">{{page}}</a>',
-      currentPage: '<strong class="tui-page-btn tui-is-selected">{{page}}</strong>',
-      moveButton: 
-        '<a href="#" class="tui-page-btn tui-{{type}}">' +
-          '<span class="tui-ico-{{type}}">{{type}}</span>' +
-        '</a>',
-      disabledMoveButton:
-        '<span class="tui-page-btn tui-is-disabled tui-{{type}}">' +
-          '<span class="tui-ico-{{type}}">{{type}}</span>' +
-        '</span>',
-      moreButton:
-        '<a href="#" class="tui-page-btn tui-{{type}}-is-ellip">' +
-          '<span class="tui-ico-ellip">...</span>' +
-        '</a>'
-    },
   });
-
-  // pagination.disabledMoveButton('first');
-
-  pagination.on('beforeMove', (event) => {
+    pagination.on('beforeMove', event => {
     const currentPage = event.page;
-    renderArticles(currentPage);
-});
+    clearMarkup();
+    createMarkup(markData, currentPage);
+  });
 }
+export {initPagination};
