@@ -7,6 +7,8 @@ const galleryRef = document.querySelector('.gallery__list');
 const formRef = document.querySelector('.search-field');
 const inputRef = document.querySelector('#search-field__input');
 const paginationContainer = document.getElementById('pagination');
+const errorFind = document.querySelector(".notfind-part");
+
 import {weather} from './weather';
 formRef.addEventListener('submit', onSubmit);
 inputRef.addEventListener('input', createReq);
@@ -160,8 +162,11 @@ function onSearch(inputData) {
   const searchUrl = `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${inputData}&api-key=${API_KEY}`;
   fetchNews(searchUrl).then(res => {
     console.log(res.response.docs);
+    errorFind.classList.add('notfind-part-hidden')
     if (res.response.docs.length === 0) {
       console.log('Empty');
+      errorFind.classList.remove('notfind-part-hidden');
+      clearMarkup()
     }
     normalizeSrc(res.response.docs);
     createMarkup(markData, page);
