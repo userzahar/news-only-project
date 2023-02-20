@@ -1,3 +1,5 @@
+import { mqHandler } from './functions/mqHandler'
+
 const API_KEY = 'pJnhjsndYoXEeiZxcLsx3UMkwINk9PiQ';
 const reqUrl = `https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=${API_KEY}`;
 const ICON_HEART = '/sprite.f14d31f7.svg#icon-heart';
@@ -52,8 +54,11 @@ function createMarkup(arr, page) {
   pageMarkup.splice(2, 0, emptyCard);
   const finishedMkp = pageMarkup.join('');
   // console.log(finishedMkp);
-  // console.log(markup);
+  console.log("BEFORE");
   galleryRef.insertAdjacentHTML('beforeend', finishedMkp);
+  console.log("AFTER");
+  mqHandler();
+  console.log("AFTER mqHandler");
 }
 
 function normalizePop(feed) {
