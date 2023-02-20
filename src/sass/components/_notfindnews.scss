@@ -6,23 +6,17 @@
     text-align: center;
     align-content: center;
     justify-content: center;
-    padding-top: 40px;
-    padding-bottom: 59px;
-    // margin-bottom: 59px;
+    margin-bottom: 59px;
   
-    @media  screen and (min-width: $tablet) and (max-width: $pre_desktop) {
-    //   margin-top: 48px;
-    //   margin-bottom: 101px;
-    padding-top: 88px;
-    padding-bottom: 101px;
+    /* @media screen and (min-width: 768px) and (max-width: 1200px) {
+      margin-top: 48px;
+      margin-bottom: 101px;
     }
   
-    @media screen and (min-width:  $desktop) {
-    //   margin-top: 15px;
-    //   margin-bottom: 60px;
-    padding-top: 121px;
-    padding-bottom: 226px;
-    } 
+    @media screen and (min-width: 768px) {
+      margin-top: 15px;
+      margin-bottom: 60px;
+    } */
 }
 .notfind-part-hidden {
       display: none;
@@ -35,43 +29,32 @@
     color: var(--text-color);
     font-size: 20px;
     line-height: 27px;
-    margin-bottom: 40px;
 
-    @media  screen and (min-width: $tablet) and (max-width: $pre_desktop) {
-        font-size: 40px;
-        line-height: 55px;
-      } 
-
-    @media screen and (min-width: $desktop) {
+    /* @media screen and (min-width: 768px) and (max-width: 1200px) {
       font-size: 40px;
       line-height: 55px;
-    } 
+    }
+    @media screen and (min-width: 1200px) {
+      font-size: 40px;
+      line-height: 55px;
+    } */
   }
   
   .notfind-image {
-    // margin-top: 40px;
+    margin-top: 40px;
     margin-left: auto;
     margin-right: auto;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 248px;
-    height: 198px;
+    height: auto;
 
-     @media screen and (min-width: $tablet) and (max-width: $pre_desktop) {
-      width: 560px;
-      height: 444px;
+     @media screen and (min-width: 768px) and (max-width: 1200px) {
+      width: 270px;
     }
   
-    @media screen and (min-width: $desktop) {
-        width: 601px;
-        height: 478px;
+    @media screen and (min-width: 1200px) {
+      width: 350px;
     } 
   }
-//   $pre_mobile: 479.98px;
-// $pre_tablet: 767.98px;
-// $pre_desktop: 1279.98px;
-
-// $mobile: 480px;
-// $tablet: 768px;
-// $desktop: 1280px;
