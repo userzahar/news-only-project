@@ -39,10 +39,16 @@ export default function onResize(size, toRemove) {
     }
   }
 
+  if (window.location.pathname !== '/read.html') {
+    for (sizeRemove of toRemove) {
+      refs.galleryList.classList.remove(`gallery__list-${sizeRemove}`);
+    }
+    refs.galleryList.classList.add(`gallery__list-${size}`);
+  }
+
   for (sizeRemove of toRemove) {
-    refs.galleryList.classList.remove(`gallery__list-${sizeRemove}`);
     refs.logo.classList.remove(`logo-${sizeRemove}`);
-    refs.navBar.classList.remove(`navbar-${sizeRemove}`)
+    refs.navBar.classList.remove(`navbar-${sizeRemove}`);
   }
 
   refs.headerContainer.forEach(hCont => {
@@ -53,9 +59,7 @@ export default function onResize(size, toRemove) {
   });
 
   refs.logo.classList.add(`logo-${size}`);
-  refs.navBar.classList.add(`navbar-${size}`)
-
-  refs.galleryList.classList.add(`gallery__list-${size}`);
+  refs.navBar.classList.add(`navbar-${size}`);
 
   refs.container.forEach(cont => {
     for (sizeRemove of toRemove) {
