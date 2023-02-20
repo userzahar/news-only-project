@@ -5,7 +5,10 @@ import {
   categoriesForDesktop,
 } from './filter';
 export default function onResize(size, toRemove) {
-  if (window.location.pathname === '/index.html') {
+  if (
+    window.location.pathname === '/' ||
+    window.location.pathname === '/index.html'
+  ) {
     for (sizeRemove of toRemove) {
       refs.name.classList.remove(`catagories__btn-name-${sizeRemove}`);
       refs.listOfCatagories.classList.remove(`catagories__list-${sizeRemove}`);
@@ -20,25 +23,26 @@ export default function onResize(size, toRemove) {
 
     refs.btnCatagories.classList.add(`catagories__btn-${size}`);
     if (size === 'mobile') {
-    refs.catagoriesItem.innerHTML = '';
-    categoriesForMobile();
-    console.log('call  categoriesForMobile');
-  }
-  if (size === 'tablet') {
-    refs.catagoriesItem.innerHTML = '';
-    categoriesForTablet();
-    console.log('call  categoriesForTablet');
-  }
-  if (size === 'desktop') {
-    refs.catagoriesItem.innerHTML = '';
-    categoriesForDesktop();
-    console.log('call  categoriesForDesktop');
-  } 
+      refs.catagoriesItem.innerHTML = '';
+      categoriesForMobile();
+      console.log('call  categoriesForMobile');
+    }
+    if (size === 'tablet') {
+      refs.catagoriesItem.innerHTML = '';
+      categoriesForTablet();
+      console.log('call  categoriesForTablet');
+    }
+    if (size === 'desktop') {
+      refs.catagoriesItem.innerHTML = '';
+      categoriesForDesktop();
+      console.log('call  categoriesForDesktop');
+    }
   }
 
   for (sizeRemove of toRemove) {
     refs.galleryList.classList.remove(`gallery__list-${sizeRemove}`);
     refs.logo.classList.remove(`logo-${sizeRemove}`);
+    refs.navBar.classList.remove(`navbar-${sizeRemove}`)
   }
 
   refs.headerContainer.forEach(hCont => {
@@ -49,6 +53,7 @@ export default function onResize(size, toRemove) {
   });
 
   refs.logo.classList.add(`logo-${size}`);
+  refs.navBar.classList.add(`navbar-${size}`)
 
   refs.galleryList.classList.add(`gallery__list-${size}`);
 
@@ -65,5 +70,4 @@ export default function onResize(size, toRemove) {
     }
     singleItem.classList.add(`gallery__item-${size}`);
   });
-  
 }
