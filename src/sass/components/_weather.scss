@@ -1,23 +1,25 @@
-.weather{
+.weather {
     background-color: #4440F7;
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
     padding-top: 37px;
     padding-bottom: 32px;
-    height: 469px;
+    height: 675px;
 }
- 
 
-.weather_country{
+
+.weather_country {
     display: inline-block;
     margin-left: 13px;
 }
-.weather_wrap{
+
+.weather_wrap {
     display: flex;
     gap: 16px;
     margin-left: 38px;
 }
-.weather_character{
+
+.weather_character {
     color: #fff;
     font-family: 'Roboto';
     font-weight: 400;
@@ -26,6 +28,7 @@
     margin-bottom: 5px;
     height: 28px;
 }
+
 .weather_degree {
     color: #fff;
     display: inline;
@@ -36,8 +39,9 @@
     font-size: 55px;
     line-height: 1.2;
 }
-.weather_degree::after{
-    content:"";
+
+.weather_degree::after {
+    content: "";
     width: 1px;
     border: none;
     height: 75px;
@@ -48,7 +52,7 @@
     border-radius: 4px;
 }
 
-.weather_part{
+.weather_part {
     color: #fff;
     font-family: 'Roboto';
     font-style: normal;
@@ -57,7 +61,7 @@
     line-height: 28px;
 }
 
-.weather_location{
+.weather_location {
     color: #fff;
     font-family: 'Roboto';
     font-style: normal;
@@ -76,7 +80,7 @@
     padding: 3px;
 }
 
-.weather_week{
+.weather_week {
     color: #fff;
     font-family: 'Roboto';
     font-style: normal;
@@ -93,6 +97,7 @@
     margin-right: auto;
     margin-top: 18px;
 }
+
 .main {
     background-color: #fff;
     padding: 0 15px;
@@ -102,13 +107,13 @@
     background-color: palevioletred;
 }
 
-.alighn{
+.alighn {
     margin-top: 40px;
     margin-bottom: 18px;
     text-align: center;
 }
 
-.weather_image{
+.weather_image {
     width: 121px;
     height: 128px;
     margin-top: 54px;
