@@ -1,5 +1,5 @@
 import { refs } from "./refs";
-
+import { mqHandler } from "./functions/mqHandler";
 
 
 function initPagination(totalPages) {
@@ -35,7 +35,8 @@ function initPagination(totalPages) {
     const currentPage = event.page;
     console.log(event);
     clearMarkup();
-    createMarkup(markData, currentPage);
+      createMarkup(markData, currentPage);
+      mqHandler();
   });
 
 }
