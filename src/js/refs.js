@@ -11,5 +11,6 @@ export const refs = {
   container: document.querySelectorAll('.container'),
   headerContainer: document.querySelectorAll('.header-container'),
   logo: document.querySelector('.logo'),
-  paginationContainer:document.getElementById('pagination'),
+  paginationContainer: document.getElementById('pagination'),
+  navBar: document.querySelector('.navbar')
 };

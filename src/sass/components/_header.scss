@@ -67,17 +67,31 @@ body.darkMode {
 
 .navbar {
   display: none;
+  
+  &-mobile {
+    display: none;
+  }
 
-  @media screen and (min-width: $pre_tablet) {
+  &-tablet {
     display: flex;
     margin-left: 48px;
     gap: 44px;
   }
 
-  @media screen and (min-width: $pre_desktop) {
+  // @media screen and (min-width: $pre_tablet) {
+  //   display: flex;
+  //   margin-left: 48px;
+  //   gap: 44px;
+  // }
+  &-desktop {
+    display: flex;
     margin-left: 102px;
     gap: 69px;
   }
+  // @media screen and (min-width: $pre_desktop) {
+  //   margin-left: 102px;
+  //   gap: 69px;
+  // }
 }
 
 .navbar__item {
@@ -363,7 +377,7 @@ input:checked + .slider:before {
   // fill: var(--switcher-gray);
   fill: var(--switcher-gray-moon);
 }
-.burger-menu{
+.burger-menu {
   display: inline-block;
   cursor: pointer;
   top: 50%;
@@ -372,10 +386,12 @@ input:checked + .slider:before {
     display: none;
 }
 }
-.bar1, .bar2, .bar3 {
+.bar1,
+.bar2,
+.bar3 {
   width: 18px;
   height: 2px;
   background-color: #333;
   margin: 3.5px 0;
-    border-radius: 34%;
+  border-radius: 34%;
 }
