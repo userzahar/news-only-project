@@ -1,6 +1,7 @@
 import { refs } from "./refs";
 
 
+
 function initPagination(totalPages) {
   const pagination = new tui.Pagination(refs.paginationContainer, {
     totalItems: totalPages,
@@ -29,8 +30,12 @@ function initPagination(totalPages) {
 
   // pagination.disabledMoveButton('first');
 
-  pagination.on('beforeMove', (event) => {
+  
+    pagination.on('beforeMove', event => {
     const currentPage = event.page;
-    renderArticles(currentPage);
-});
+    console.log(event);
+    clearMarkup();
+    createMarkup(markData, currentPage);
+  });
+
 }
