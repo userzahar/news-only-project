@@ -1,13 +1,17 @@
 import {initPagination} from '../pagination'
-import {totalPages} from '../news-page';
+import { totalPages } from '../news-page';
+import { itemsPerPage } from '../news-page';
 import {mqHandler} from './mqHandler'
-import {weather} from '../weather';
+import { weather } from '../weather';
+
+
 
 
 let srartIndex = 0;
 let endIndex = 0;
-let itemsPerPage = 8;
-export {itemsPerPage};
+let weatherPos = 0;
+let pagBtnQty = 5;
+// export {itemsPerPage};
 
 let page = 1;
 export {page};
@@ -19,15 +23,56 @@ const emptyCard = `<li class="gallery__item">${weather}</li>`;
 const ICON_HEART = '/sprite.f14d31f7.svg#icon-heart';
 const galleryRef = document.querySelector('.gallery__list');
 
+// const mql = window.matchMedia('(min-width: 1280px)');
+// function screenChange(e) {
+//   if (e.matches) {
+//     weatherPos = 2;
+//     clearMarkup();
+//     createMarkup(markData, page);
+//     console.log(weatherPos);
+//     console.log('bolshe 1280')
+//   } else {
+//     weatherPos = 1;
+//     clearMarkup();
+//     createMarkup(markData, page);
+//     console.log(weatherPos);
+//     console.log('menshe 1280')
+//   }
+// }
+// screenChange(mql);
+// mql.addEventListener('change', screenChange);
+
 
 function createMarkup(arr, page) {
+
+  if (window.innerWidth >= 1280) {
+
+    weatherPos = 2;
     srartIndex = (page - 1) * itemsPerPage;
     endIndex = srartIndex + itemsPerPage;
-    initPagination(totalPages);
+  
+  }
+  if (window.innerWidth < 1280 && window.innerWidth >= 780) {
+
+    weatherPos = 1;
+    itemsPerPage = 7;
+    srartIndex = (page - 1) * itemsPerPage;
+    endIndex = srartIndex + itemsPerPage;
+  
+  }
+  if (window.innerWidth < 768) {
+    weatherPos = 0;
+    itemsPerPage = 4;
+    srartIndex = (page - 1) * itemsPerPage;
+    endIndex = srartIndex + itemsPerPage;
+    pagBtnQty = 3;
+  }
+
+    initPagination(totalPages, pagBtnQty);
   
     const markup = arr.map(el => {
       return `<li class="gallery__item">
-                     <div class="gallery__thumb"> <p class="gallery__category">Job searching</p>
+                     <div class="gallery__thumb"> <p class="gallery__category">${el.category}</p>
                       <img class="gallery__img" src="${el.image}" alt="${el.alt}"/>
                       <div class='gallery__favorite'><p>Add to favorite</p>
                       <button type="button"></button>
@@ -43,15 +88,15 @@ function createMarkup(arr, page) {
     });
     const pageMarkup = markup.slice(srartIndex, endIndex);
     // console.log(pageMarkup);
-    pageMarkup.splice(2, 0, emptyCard);
+    pageMarkup.splice(weatherPos, 0, emptyCard);
     const finishedMkp = pageMarkup.join('');
     // console.log(finishedMkp);
-    console.log("BEFORE");
+    // console.log("BEFORE");
     galleryRef.insertAdjacentHTML('beforeend', finishedMkp);
     mqHandler(); //додана функція для адаптивного відображення.
   }
   
-  export {createMarkup};
+export {createMarkup};
 
 function normalizePop(feed) {
     const marks = feed.map(el => {
@@ -89,8 +134,9 @@ function normalizePop(feed) {
       const alt = checkoutAlt();
       // console.log(alt);
       // console.log(image);
+      const category = el.section;
   
-      return { descr, date, title, source, image, alt };
+      return { descr, date, title, source, image, alt, category };
     });
     // console.log(marks);
     markData = marks;
@@ -98,13 +144,13 @@ function normalizePop(feed) {
     return markData;
   }
 
-  export {normalizePop};
+export {normalizePop};
 
 function clearMarkup() {
     galleryRef.innerHTML = '';
   }
   
-  export {clearMarkup};
+export {clearMarkup};
   
 function normalizeSrc(feed) {
     const marks = feed.map(el => {
@@ -143,5 +189,11 @@ function normalizeSrc(feed) {
     return markData;
   }
   
-  export {normalizeSrc};
+export { normalizeSrc };
+
+// 
+
+
+
+
 

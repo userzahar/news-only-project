@@ -8,4 +8,4 @@ import './js/js-read/read';
 if (window.location.pathname === '/favorite.html' || window.location.pathname === '/read.html') {
   window.addEventListener('DOMContentLoaded', event => mqHandler());
 }
-console.log(window.location);
+// console.log(window.location);

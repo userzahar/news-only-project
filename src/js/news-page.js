@@ -4,11 +4,13 @@ import {clearMarkup} from './functions/markup';
 import {normalizePop} from './functions/markup';
 import {normalizeSrc}  from './functions/markup';
 import {markData} from './functions/markup';
-import {itemsPerPage} from './functions/markup';
-import {page} from './functions/markup';
+// import {itemsPerPage} from './functions/markup';
+import { page } from './functions/markup';
 
 let totalPages = 0;
-export {totalPages};
+let itemsPerPage = 8;
+export { totalPages };
+export { itemsPerPage };
 
 
 const formRef = document.querySelector('.search-field');
@@ -22,10 +24,19 @@ inputRef.addEventListener('input', createReq);
 
 
 fetchNews('/svc/mostpopular/v2/viewed/1.json', {		
-    })		
-      .then(data => {		
+    }).then(data => {		
+        if (window.innerWidth >= 1280) {
+          itemsPerPage = 8; 
+        }
+        if (window.innerWidth < 1280 && window.innerWidth >= 780) {
+          itemsPerPage = 7;
+        }
+        if (window.innerWidth < 768) {
+          itemsPerPage = 4;
+        }
         totalItems = data.results.length;
-        totalPages = Math.ceil(data.results.length / itemsPerPage);		
+        totalPages = Math.ceil(data.results.length / itemsPerPage);	
+
         normalizePop(data.results);
         // console.log(page);
         createMarkup(markData, page)		
@@ -66,5 +77,27 @@ function onSubmit(e) {
   clearMarkup();
   onSearch(searchReq);
 }
+
+
+
+export function fetchSizer(size) {
+
+  if (size === 'desktop') {
+    console.log('desk')
+    // clearMarkup();
+    // createMarkup(markData, page);
+
+  } else if (size === 'tablet') {
+    console.log('tab')
+    // clearMarkup();
+    // createMarkup(markData, page);
+  } else if (size === 'mobile'){
+    console.log('mobile')
+    // clearMarkup();
+    // createMarkup(markData, page);
+  }
+
+};
+
 
 // const encoded = encodeURIComponent('crosswords & games'); //crosswords%20&%20games
