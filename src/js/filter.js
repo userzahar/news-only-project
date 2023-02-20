@@ -1,4 +1,6 @@
+
 import { refs } from './refs';
+if (window.location.pathname === '/index.html'){
 const getCatagories = fetchCatagories();
 
 refs.btnCatagories.addEventListener('click', onBtnCatagoriesClick);
@@ -114,5 +116,5 @@ function selectedCatagory(evt) {
     `https://api.nytimes.com/svc/news/v3/content/nyt/${selectedCatagory}.json?api-key=HunERBoFJkGno2ChxwL9g20UbJbd8EGL`
   ).then(res => res.json());
 }
-
+}
 export { categoriesForMobile, categoriesForTablet, categoriesForDesktop };

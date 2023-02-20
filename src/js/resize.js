@@ -5,30 +5,53 @@ import {
   categoriesForDesktop,
 } from './filter';
 export default function onResize(size, toRemove) {
-  refs.listOfCatagories.classList.add(`catagories__list-${size}`);
-  for (sizeRemove of toRemove) {
-    refs.listOfCatagories.classList.remove(`catagories__list-${sizeRemove}`);
+  if (window.location.pathname === '/index.html') {
+    for (sizeRemove of toRemove) {
+      refs.name.classList.remove(`catagories__btn-name-${sizeRemove}`);
+      refs.listOfCatagories.classList.remove(`catagories__list-${sizeRemove}`);
+      refs.catagories.classList.remove(`catagories-${sizeRemove}`);
+      refs.btnCatagories.classList.remove(`catagories__btn-${sizeRemove}`);
+    }
+    refs.listOfCatagories.classList.add(`catagories__list-${size}`);
+
+    refs.catagories.classList.add(`catagories-${size}`);
+
+    refs.name.classList.add(`catagories__btn-name-${size}`);
+
+    refs.btnCatagories.classList.add(`catagories__btn-${size}`);
+    if (size === 'mobile') {
+    refs.catagoriesItem.innerHTML = '';
+    categoriesForMobile();
+    console.log('call  categoriesForMobile');
   }
-  refs.catagories.classList.add(`catagories-${size}`);
-  for (sizeRemove of toRemove) {
-    refs.catagories.classList.remove(`catagories-${sizeRemove}`);
+  if (size === 'tablet') {
+    refs.catagoriesItem.innerHTML = '';
+    categoriesForTablet();
+    console.log('call  categoriesForTablet');
   }
-  refs.name.classList.add(`catagories__btn-name-${size}`);
-  for (sizeRemove of toRemove) {
-    refs.name.classList.remove(`catagories__btn-name-${sizeRemove}`);
+  if (size === 'desktop') {
+    refs.catagoriesItem.innerHTML = '';
+    categoriesForDesktop();
+    console.log('call  categoriesForDesktop');
+  } 
   }
-  refs.btnCatagories.classList.add(`catagories__btn-${size}`);
-  for (sizeRemove of toRemove) {
-    refs.btnCatagories.classList.remove(`catagories__btn-${sizeRemove}`);
-  }
+
   for (sizeRemove of toRemove) {
     refs.galleryList.classList.remove(`gallery__list-${sizeRemove}`);
-    refs.headerContainer.classList.remove(`header-container-${sizeRemove}`);
     refs.logo.classList.remove(`logo-${sizeRemove}`);
   }
+
+  refs.headerContainer.forEach(hCont => {
+    for (sizeRemove of toRemove) {
+      hCont.classList.remove(`header-container-${sizeRemove}`);
+    }
+    hCont.classList.add(`header-container-${size}`);
+  });
+
   refs.logo.classList.add(`logo-${size}`);
-  refs.headerContainer.classList.add(`header-container-${size}`);
+
   refs.galleryList.classList.add(`gallery__list-${size}`);
+
   refs.container.forEach(cont => {
     for (sizeRemove of toRemove) {
       cont.classList.remove(`container-${sizeRemove}`);
@@ -42,16 +65,5 @@ export default function onResize(size, toRemove) {
     }
     singleItem.classList.add(`gallery__item-${size}`);
   });
-  if (size === 'mobile') {
-    // refs.catagoriesItem.innerHTML = '';
-    categoriesForMobile();
-  }
-  if (size === 'tablet') {
-    // refs.catagoriesItem.innerHTML = '';
-    categoriesForTablet();
-  }
-  if (size === 'desktop') {
-    // refs.catagoriesItem.innerHTML = '';
-    categoriesForDesktop();
-  }
+  
 }

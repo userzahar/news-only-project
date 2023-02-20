@@ -56,9 +56,7 @@ function createMarkup(arr, page) {
   // console.log(finishedMkp);
   console.log("BEFORE");
   galleryRef.insertAdjacentHTML('beforeend', finishedMkp);
-  console.log("AFTER");
-  mqHandler();
-  console.log("AFTER mqHandler");
+  mqHandler(); //додана функція для адаптивного відображення.
 }
 
 function normalizePop(feed) {
