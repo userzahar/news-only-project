@@ -1,5 +1,8 @@
+import { refs } from "./refs";
+
+
 function initPagination(totalPages) {
-  const pagination = new tui.Pagination(paginationContainer, {
+  const pagination = new tui.Pagination(refs.paginationContainer, {
     totalItems: totalPages,
     itemsPerPage: 1,
     visiblePages: 3,
