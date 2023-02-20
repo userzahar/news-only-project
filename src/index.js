@@ -2,29 +2,15 @@ import onResize from './js/resize';
 import getCatagories from './js/filter';
 import './js/js-header/dark-mode';
 import './js/js-header/mobile-menu';
+
 import './js/pagination'
+
+import { mqHandler } from './js/functions/mqHandler';
+
 import './js/js-read/read';
+import './js/functions/eventLiCard';
 
-window.addEventListener('DOMContentLoaded', event => mqHandler());
-
-const screen = {
-  mobile: window.matchMedia('(min-width: 300px)'),
-  tablet: window.matchMedia('(min-width: 768px)'),
-  desktop: window.matchMedia('(min-width: 1280px)'),
-};
-
-for (let [scr, mq] of Object.entries(screen)) {
-  if (mq) mq.addEventListener('change', mqHandler);
+if (window.location.pathname !== '/index.html') {
+  window.addEventListener('DOMContentLoaded', event => mqHandler());
 }
-
-function mqHandler() {
-  let size = null;
-  let toRemove = [];
-  for (let [scr, mq] of Object.entries(screen)) {
-    if (!mq || mq.matches) {
-      size = scr;
-    } else if (scr !== size) toRemove.push(scr);
-  }
-
-  onResize(size, toRemove);
-}
+console.log(window.location);

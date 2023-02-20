@@ -1,3 +1,4 @@
+
 import {fetchNews} from './functions/fetchNews';
 import {createMarkup} from './functions/markup';
 import {clearMarkup} from './functions/markup';
@@ -7,13 +8,13 @@ import {normalizePop} from './functions/markup';
 import {itemsPerPage} from './functions/markup';
 import {page} from './functions/markup';
 
+
 let totalPages = 0;
 export {totalPages};
 
 
 const formRef = document.querySelector('.search-field');
 const inputRef = document.querySelector('#search-field__input');
-
 
 formRef.addEventListener('submit', onSubmit);
 inputRef.addEventListener('input', createReq);
@@ -38,6 +39,7 @@ fetchNews('/svc/mostpopular/v2/viewed/1.json', {
 
 
 function onSearch(inputData) {
+
   fetchNews('/svc/search/v2/articlesearch.json', {
       q: inputData,
       page: '1',
@@ -50,6 +52,7 @@ function onSearch(inputData) {
       }
       normalizeSrc(data.response.docs);
       createMarkup(markData, page);
+
   });
 };
 
@@ -67,3 +70,4 @@ function onSubmit(e) {
 }
 
 // const encoded = encodeURIComponent('crosswords & games'); //crosswords%20&%20games
+
