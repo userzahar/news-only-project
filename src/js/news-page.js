@@ -1,9 +1,10 @@
 import {fetchNews} from './functions/fetchNews';
+
 import {createMarkup} from './functions/markup';
 import {clearMarkup} from './functions/markup';
+import {normalizePop} from './functions/markup';
 import {normalizeSrc}  from './functions/markup';
 import {markData} from './functions/markup';
-import {normalizePop} from './functions/markup';
 import {itemsPerPage} from './functions/markup';
 import {page} from './functions/markup';
 
@@ -56,6 +57,7 @@ function onSearch(inputData) {
 // onSearch('ukraine');
 
 let searchReq = '';
+
 function createReq(e) {
   searchReq = e.target.value.trim();
   // console.log(searchReq);
