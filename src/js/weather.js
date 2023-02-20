@@ -8,7 +8,7 @@ export let weather = `<div class="weather">
 </div>
 </div>
 <img src="../images/Sun.png" width="121" class="weather_image">
-<p class="weather_character alighn">Mon<br>
+<p class="weather_date alighn">Mon<br>
 21 Jan 2021</p>
 <button type="button" class="weather_week"><p class="">weather for week</p></button>
 </div>`
