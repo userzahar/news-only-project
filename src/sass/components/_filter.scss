@@ -146,12 +146,10 @@ li{
     font-weight: 400;
     text-transform: capitalize;
     cursor: pointer;
-
-   
-
 }
 
 .catagory__btn-tab{
+    background-color: white;
     font-size: 12px;
     margin: 0;
     padding: 7.5px 24px;
@@ -163,6 +161,19 @@ li{
     text-transform: capitalize;
     cursor: pointer;
 }
+
+.catagories__btn-desktop{
+    background-color: white;
+}
+
+.catagories__btn-tablet {
+    background-color: white;
+}
+
+.catagories__btn-mobile {
+    background-color: white;
+}
+
 
 .catagory__btn-tab.btn-color{
     background-color:rgba(75, 72, 219, 1);
