@@ -32,7 +32,6 @@ fetchNews('/svc/mostpopular/v2/viewed/1.json', {
     })		
       .then(data => {		
         totalItems = data.results.length;
-        console.log("🚀 ~ totalItems:", totalItems)
         
         totalPages = Math.ceil(data.results.length / itemsPerPage);		
         normalizePop(data.results);
