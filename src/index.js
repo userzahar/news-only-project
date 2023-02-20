@@ -4,8 +4,9 @@ import './js/js-header/dark-mode';
 import './js/js-header/mobile-menu';
 import { mqHandler } from './js/functions/mqHandler';
 import './js/js-read/read';
+import './js/functions/eventLiCard';
 
-if (window.location.pathname === '/favorite.html' || window.location.pathname === '/read.html') {
+if (window.location.pathname !== '/index.html') {
   window.addEventListener('DOMContentLoaded', event => mqHandler());
 }
 console.log(window.location);
