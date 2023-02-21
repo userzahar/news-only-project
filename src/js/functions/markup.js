@@ -101,99 +101,98 @@ function createMarkup(arr, page) {
     galleryRef.insertAdjacentHTML('beforeend', finishedMkp);
     mqHandler(); //додана функція для адаптивного відображення.
   }
-  
-export {createMarkup};
+  export {createMarkup};
 
-function normalizePop(feed) {
-  const marks = feed.map(el => {
-    function checkoutDescr() {
-      if (el.abstract.length > 120) {
-        return el.abstract.slice(0, 119) + '...';
-      }
-      return el.abstract;
-    }
-    const descr = checkoutDescr();
-    const dateFormat = new Date(el.published_date);
-    const date = new Intl.DateTimeFormat().format(dateFormat);
-    function ckeckoutTit() {
-      if (el.title.length > 50) {
-        return el.title.slice(0, 49) + '...';
-      }
-      return el.title;
-    }
-    const title = ckeckoutTit();
-    // console.log(title.length);
-    const source = el.url;
-    function checkoutImg() {
-      if (el.media.length === 0) {
-        return 'https://t3.ftcdn.net/jpg/04/62/93/66/360_F_462936689_BpEEcxfgMuYPfTaIAOC1tCDurmsno7Sp.jpg';
-      }
-      return el.media[0]['media-metadata'][2].url;
-    }
-    const image = checkoutImg();
-    function checkoutAlt() {
-      if (el.media.length === 0) {
-        return 'Image is no avalible';
-      }
-
-      const alt = checkoutAlt();
-      // console.log(alt);
-      // console.log(image);
-      const category = el.section;
-  
-      return { descr, date, title, source, image, alt, category }
-  }
-    // console.log(marks);
-    markData = marks;
-    // console.log(markData);
-    return markData;
-  })
-}
-
-export {normalizePop};
-
-function clearMarkup() {
-    galleryRef.innerHTML = '';
-  }
-  
-export {clearMarkup};
-
-function normalizeSrc(feed) {
-  const marks = feed.map(el => {
-    function checkoutDescr() {
-      if (el.abstract.length > 120) {
-        return el.abstract.slice(0, 119) + '...';
-      }
-      return el.abstract;
-    }
-    const descr = checkoutDescr();
-    const dateFormat = new Date(el.pub_date);
-    const date = new Intl.DateTimeFormat().format(dateFormat);
-    function ckeckoutTit() {
-      if (el.headline.main.length > 50) {
-        return el.headline.main.slice(0, 49) + '...';
-      }
-      return el.headline.main;
-    }
-    const title = ckeckoutTit();
-    const source = el.web_url;
-    const imagePart = el.multimedia;
-
-    function checkoutImg() {
-      if (imagePart.length === 0) {
-        return 'https://t3.ftcdn.net/jpg/04/62/93/66/360_F_462936689_BpEEcxfgMuYPfTaIAOC1tCDurmsno7Sp.jpg';
-      }
-
-      const image = checkoutImg();
-      const alt = 'New`s image';
-      // console.log(image);
-      return { descr, date, title, source, image, alt };
+  function normalizePop(feed) {
+      const marks = feed.map(el => {
+        function checkoutDescr() {
+          if (el.abstract.length > 120) {
+            return el.abstract.slice(0, 119) + '...';
+          }
+          return el.abstract;
+        }
+        const descr = checkoutDescr();
+        const dateFormat = new Date(el.published_date);
+        const date = new Intl.DateTimeFormat().format(dateFormat);
+        function ckeckoutTit() {
+          if (el.title.length > 50) {
+            return el.title.slice(0, 49) + '...';
+          }
+          return el.title;
+        }
+        const title = ckeckoutTit();
+        // console.log(title.length);
+        const source = el.url;
+        function checkoutImg() {
+          if (el.media.length === 0) {
+            return 'https://t3.ftcdn.net/jpg/04/62/93/66/360_F_462936689_BpEEcxfgMuYPfTaIAOC1tCDurmsno7Sp.jpg';
+          }
+          return el.media[0]['media-metadata'][2].url;
+        }
+        const image = checkoutImg();
+        function checkoutAlt() {
+          if (el.media.length === 0) {
+            return 'Image is no avalible';
+          }
+          return el.media[0].caption;
+        }
+        const alt = checkoutAlt();
+        // console.log(alt);
+        // console.log(image);
+        const category = el.section;
     
-  };
-    // console.log(marks);
-    markData = marks;
-    return markData;
-  })}
+        return { descr, date, title, source, image, alt, category };
+      });
+      // console.log(marks);
+      markData = marks;
+      // console.log(markData);
+      return markData;
+    }
   
-export { normalizeSrc };
-
+  export {normalizePop};
+  
+  function clearMarkup() {
+      galleryRef.innerHTML = '';
+    }
+    
+  export {clearMarkup};
+    
+  function normalizeSrc(feed) {
+      const marks = feed.map(el => {
+        function checkoutDescr() {
+          if (el.abstract.length > 120) {
+            return el.abstract.slice(0, 119) + '...';
+          }
+          return el.abstract;
+        }
+        const descr = checkoutDescr();
+        const dateFormat = new Date(el.pub_date);
+        const date = new Intl.DateTimeFormat().format(dateFormat);
+        function ckeckoutTit() {
+          if (el.headline.main.length > 50) {
+            return el.headline.main.slice(0, 49) + '...';
+          }
+          return el.headline.main;
+        }
+        const title = ckeckoutTit();
+        const source = el.web_url;
+        const imagePart = el.multimedia;
+    
+        function checkoutImg() {
+          if (imagePart.length === 0) {
+            return 'https://t3.ftcdn.net/jpg/04/62/93/66/360_F_462936689_BpEEcxfgMuYPfTaIAOC1tCDurmsno7Sp.jpg';
+          }
+          return `https://static01.nyt.com/${imagePart[0].url}`;
+        }
+        const image = checkoutImg();
+        const alt = 'New`s image';
+        // console.log(image);
+        return { descr, date, title, source, image, alt };
+      });
+      // console.log(marks);
+      markData = marks;
+      return markData;
+    }
+    
+  export { normalizeSrc };
+  
