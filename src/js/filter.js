@@ -1,18 +1,18 @@
 import { refs } from './refs';
 import {initPagination} from './pagination'
-import { totalPages } from './news-page';
-import { itemsPerPage } from './news-page';
-import { mqHandler } from './functions/mqHandler';
-import { weather } from './weather';
+// import { totalPages } from './news-page';
+// import { itemsPerPage } from './news-page';
+// import { mqHandler } from './functions/mqHandler';
+// import { weather } from './weather';
 import { createMarkup } from './functions/markup';
-import {fetchNews} from './functions/fetchNews';
+// import {fetchNews} from './functions/fetchNews';
 import {createMarkup} from './functions/markup';
 import {clearMarkup} from './functions/markup';
 // import {normalizePop} from './functions/markup';
 // import {normalizeSrc}  from './functions/markup';
-import {markData} from './functions/markup';
+// import {markData} from './functions/markup';
 // import {itemsPerPage} from './functions/markup';
-import { page } from './functions/markup';
+// import { page } from './functions/markup';
 
 let markData = {};
 
@@ -21,12 +21,15 @@ if (
   window.location.pathname === '/index.html'
 ) {
   const getCatagories = fetchCatagories();
+  let lastClickedFilterBtn = null;
   // console.log('FETCH CATS');
   refs.btnCatagories.addEventListener('click', onBtnCatagoriesClick);
   refs.catagoriesItem.addEventListener('click', selectedCatagory);
   refs.listOfCatagories.addEventListener('click', selectedCatagory);
 
-  function onBtnCatagoriesClick() {
+  function onBtnCatagoriesClick(e) {
+    e.stopPropagation();
+
     const expanded =
       refs.btnCatagories.getAttribute('aria-expanded') === 'true' || false;
     refs.btnCatagories.classList.toggle('is-open');
@@ -35,6 +38,24 @@ if (
     refs.btnCatagories.classList.toggle('btn-color');
 
     refs.listOfCatagories.classList.toggle('is-open');
+    console.log('onclick');
+    const listner = () => {
+      console.log('inlistener');
+      if (refs.btnCatagories.classList.contains('btn-color')) {
+        refs.btnCatagories.classList.remove('btn-color');
+      }
+      if (refs.btnCatagories.getAttribute('aria-expanded') === 'true') {
+        refs.btnCatagories.setAttribute('aria-expanded', false);
+      }
+      if (refs.listOfCatagories.classList.contains('is-open')) {
+        refs.listOfCatagories.classList.remove('is-open');
+      }
+      if (refs.btnCatagories.classList.contains('is-open')) {
+        refs.btnCatagories.classList.remove('is-open');
+      }
+      window.removeEventListener('click', listner);
+    };
+    window.addEventListener('click', listner);
   }
 
   function fetchCatagories() {
@@ -82,7 +103,7 @@ if (
         .join('')}`;
 
       refs.name.textContent = 'Others';
-      // refs.name.classList = 'catagories__btn-name-tab';
+
       refs.catagoriesItem.insertAdjacentHTML('afterbegin', markUp);
 
       refs.listOfCatagories.innerHTML = list;
@@ -113,7 +134,7 @@ if (
         .join('')}`;
 
       refs.name.textContent = 'Others';
-      // refs.name.classList = 'catagories__btn-name-tab';
+      
       refs.catagoriesItem.insertAdjacentHTML('afterbegin', markUp);
 
       refs.listOfCatagories.innerHTML = list;
@@ -130,21 +151,38 @@ if (
     const selectedCatagory = evt.target.dataset.name;
 
     const button = evt.target;
+
+    if (lastClickedFilterBtn) {
+      lastClickedFilterBtn.classList.remove('btn-color');
+    }
     console.log(button);
     console.log(selectedCatagory);
     button.classList.toggle('btn-color');
+    lastClickedFilterBtn = button;
+
+    const encoded = encodeURIComponent(selectedCatagory);
  
-    const results = await fetchNewsByCategory(selectedCatagory, apiKey);
+    const results = await fetchNewsByCategory(encoded, apiKey);
+    if (window.innerWidth >= 1280) {
+      itemsPerPage = 8;
+    }
+    if (window.innerWidth < 1280 && window.innerWidth >= 780) {
+      itemsPerPage = 7;
+    }
+    if (window.innerWidth < 768) {
+      itemsPerPage = 4;
+    }
+    totalItems = results.results.length;
+    totalPages = results.num_results;
+    console.log("HI!", totalPages);
+  
     arrForMarkup = results.results;
     console.log(arrForMarkup);
     normalizePop(arrForMarkup);
+    console.log(markDataNew);
     clearMarkup();
-    createMarkup(arrForMarkup, 1);
+    createMarkup(markDataNew, 1);
 
-
-    // return fetch(
-    //   `https://api.nytimes.com/svc/news/v3/content/nyt/${selectedCatagory}.json?api-key=HunERBoFJkGno2ChxwL9g20UbJbd8EGL`
-    // ).then(res => res.json());
   }
 }
 async function fetchNewsByCategory(section, apiKey) {
@@ -168,7 +206,7 @@ function normalizePop(feed) {
       if (el.abstract.length > 120) {
         return el.abstract.slice(0, 119) + '...';
       }
-      return el.abstract;
+      // return el.abstract;
     }
     const descr = checkoutDescr();
     const dateFormat = new Date(el.published_date);
@@ -177,37 +215,33 @@ function normalizePop(feed) {
       if (el.title.length > 50) {
         return el.title.slice(0, 49) + '...';
       }
-      return el.title;
+      // return el.title;
     }
     const title = ckeckoutTit();
     // console.log(title.length);
     const source = el.url;
     function checkoutImg() {
-      if (el.multimedia.length === 0) {
+      if (el.multimedia === null) {
         return 'https://t3.ftcdn.net/jpg/04/62/93/66/360_F_462936689_BpEEcxfgMuYPfTaIAOC1tCDurmsno7Sp.jpg';
       }
-      return el.multimedia[0].url;
+      return el.multimedia[2].url;
     }
     const image = checkoutImg();
     function checkoutAlt() {
-      if (el.multimedia.length === 0) {
+      if (el.multimedia === null) {
         return 'Image is no avalible';
       }
       return el.multimedia[0].caption;
     }
     const alt = checkoutAlt();
-    console.log("alt=", alt);
-    console.log("image=", image);
-    console.log("title=", title);
-    console.log("source=", source);
-    console.log("descr=", descr);
-    console.log("date=", date);
+    const category = el.section;
 
-    return { descr, date, title, source, image, alt };
+
+    return { descr, date, title, source, image, alt, category };
   });
   // console.log(marks);
-  markData = marks;
+  markDataNew = marks;
   // console.log(markData);
-  return markData;
+  return markDataNew;
 }
 export { categoriesForMobile, categoriesForTablet, categoriesForDesktop };
