@@ -9,7 +9,7 @@ import { normalizeSrc } from './functions/markup';
 import { markData } from './functions/markup';
 // import {itemsPerPage} from './functions/markup';
 import { page } from './functions/markup';
-import { addToLocalStorate } from './js-read/read'
+// import { addToLocalStorate } from './js-read/read'
 
 
 export let itemsPerPage = 8;
