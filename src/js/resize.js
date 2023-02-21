@@ -25,17 +25,17 @@ export default function onResize(size, toRemove) {
     if (size === 'mobile') {
       refs.catagoriesItem.innerHTML = '';
       categoriesForMobile();
-      console.log('call  categoriesForMobile');
+      // console.log('call  categoriesForMobile');
     }
     if (size === 'tablet') {
       refs.catagoriesItem.innerHTML = '';
       categoriesForTablet();
-      console.log('call  categoriesForTablet');
+      // console.log('call  categoriesForTablet');
     }
     if (size === 'desktop') {
       refs.catagoriesItem.innerHTML = '';
       categoriesForDesktop();
-      console.log('call  categoriesForDesktop');
+      // console.log('call  categoriesForDesktop');
     }
   }
 

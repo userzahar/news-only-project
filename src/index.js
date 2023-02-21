@@ -18,6 +18,7 @@ if (
   window.addEventListener('DOMContentLoaded', event => mqHandler());
 }
 
+
 console.log(window.location);
 
 refs.galleryList.addEventListener('click', toLS);
