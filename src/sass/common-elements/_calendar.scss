@@ -64,8 +64,11 @@
         color: currentColor;
       }
     }
-     .calendar__arrow__icon-up {
+     .icon-up {
       display: block;
+    }
+     .icon-down {
+      display: none;
     }
   }
   .calendar__icon {
@@ -79,9 +82,7 @@
     position: absolute;
     right: 12px;
     top: 50%;
-    transform: translate(0, -50%);
-
-   
+    transform: translate(0, -50%);   
   }
   .date-picker {
     width: 100%;
@@ -110,9 +111,13 @@
       max-width: 152px;
     }
   }
-  .calendar__arrow__icon-up{
+  .icon-up{
     display: none;
   }
+
+   .icon-down {
+      fill: #4440f7;
+    }
 }
 .numInputWrapper {
   position: unset !important;
