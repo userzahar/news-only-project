@@ -120,4 +120,5 @@ if (
     ).then(res => res.json());
   }
 }
+
 export { categoriesForMobile, categoriesForTablet, categoriesForDesktop };
