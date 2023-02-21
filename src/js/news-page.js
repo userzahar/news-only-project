@@ -1,3 +1,7 @@
+
+import { mqHandler } from './functions/mqHandler'
+import { refs } from './refs';
+
 import {fetchNews} from './functions/fetchNews';
 import {createMarkup} from './functions/markup';
 import {clearMarkup} from './functions/markup';
@@ -7,14 +11,17 @@ import {markData} from './functions/markup';
 // import {itemsPerPage} from './functions/markup';
 import { page } from './functions/markup';
 
+let totalItems = 0;
 let totalPages = 0;
 let itemsPerPage = 8;
 export { totalPages };
 export { itemsPerPage };
 
 
+
 const formRef = document.querySelector('.search-field');
 const inputRef = document.querySelector('#search-field__input');
+
 
 
 formRef.addEventListener('submit', onSubmit);
@@ -35,7 +42,7 @@ fetchNews('/svc/mostpopular/v2/viewed/1.json', {
           itemsPerPage = 4;
         }
         totalItems = data.results.length;
-        totalPages = Math.ceil(data.results.length / itemsPerPage);	
+        totalPages = Math.ceil(data.results.length / itemsPerPage);		
 
         normalizePop(data.results);
         // console.log(page);
@@ -54,6 +61,7 @@ function onSearch(inputData) {
       page: '1',
     }).then(data => {
       totalItems = data.response.docs.length;
+      
       totalPages = Math.ceil(data.response.docs.length / itemsPerPage);
       // console.log(totalItems);
       if (data.response.docs.length === 0) {
