@@ -3,7 +3,7 @@ import { mqHandler } from './js/functions/mqHandler';
 import getCatagories from './js/filter';
 import './js/js-header/dark-mode';
 import './js/js-header/mobile-menu';
-import './js/js-read/read';
+// import './js/js-read/read';
 import './js/localStorageFavorite';
 
 // import './js/functions/eventLiCard';
