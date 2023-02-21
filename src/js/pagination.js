@@ -4,11 +4,11 @@ import {markData} from './functions/markup';
 // import {normalizeSrc}  from './functions/markup';
 
 const paginationContainer = document.getElementById('pagination');
-function initPagination(totalPages) {
+function initPagination(totalPages, pagBtnQty) {
   const pagination = new tui.Pagination(paginationContainer, {
     totalItems: totalPages,
     itemsPerPage: 1,
-    visiblePages: 3,
+    visiblePages: pagBtnQty,
   });
     pagination.on('beforeMove', event => {
     const currentPage = event.page;

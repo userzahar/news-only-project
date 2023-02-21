@@ -4,12 +4,12 @@ import getCatagories from './js/filter';
 import './js/js-header/dark-mode';
 import './js/js-header/mobile-menu';
 import './js/js-read/read';
+import './js/localStorageFavorite';
 
 // import './js/functions/eventLiCard';
 import { calendar } from './js/calendar';
 
 import { refs } from './js/refs';
-
 
 if (
   window.location.pathname === '/favorite.html' ||
@@ -24,8 +24,8 @@ refs.galleryList.addEventListener('click', toLS);
 let readNews;
 let fromLS = localStorage.getItem('read-news');
 if (fromLS) {
-   readNews = JSON.parse(fromLS)
-} else readNews = []
+  readNews = JSON.parse(fromLS);
+} else readNews = [];
 
 console.log('ReadNews', readNews);
 // readNews = readNews ? readNews.split('},') : [];
