@@ -5,7 +5,7 @@ import './js/js-header/dark-mode';
 import './js/js-header/mobile-menu';
 import './js/js-read/read';
 
-import './js/functions/eventLiCard';
+// import './js/functions/eventLiCard';
 import { calendar } from './js/calendar';
 
 import { refs } from './js/refs';
