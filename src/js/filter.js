@@ -1,16 +1,35 @@
 import { refs } from './refs';
+import {initPagination} from './pagination'
+// import { totalPages } from './news-page';
+// import { itemsPerPage } from './news-page';
+// import { mqHandler } from './functions/mqHandler';
+// import { weather } from './weather';
+import { createMarkup } from './functions/markup';
+// import {fetchNews} from './functions/fetchNews';
+import {createMarkup} from './functions/markup';
+import {clearMarkup} from './functions/markup';
+// import {normalizePop} from './functions/markup';
+// import {normalizeSrc}  from './functions/markup';
+// import {markData} from './functions/markup';
+// import {itemsPerPage} from './functions/markup';
+// import { page } from './functions/markup';
+
+let markData = {};
+
 if (
   window.location.pathname === '/' ||
   window.location.pathname === '/index.html'
 ) {
   const getCatagories = fetchCatagories();
   let lastClickedFilterBtn = null;
+
   console.log('FETCH CATS');
   refs.btnCatagories.addEventListener('click', onBtnCatagoriesClick);
   refs.catagoriesItem.addEventListener('click', selectedCatagory);
   refs.listOfCatagories.addEventListener('click', selectedCatagory);
   function onBtnCatagoriesClick(e) {
     e.stopPropagation();
+
     const expanded =
       refs.btnCatagories.getAttribute('aria-expanded') === 'true' || false;
     refs.btnCatagories.classList.toggle('is-open');
@@ -74,6 +93,7 @@ if (
         )
         .join('')}`;
       refs.name.textContent = 'Others';
+
       refs.catagoriesItem.insertAdjacentHTML('afterbegin', markUp);
       refs.listOfCatagories.innerHTML = list;
     });
@@ -98,6 +118,7 @@ if (
         )
         .join('')}`;
       refs.name.textContent = 'Others';
+
       refs.catagoriesItem.insertAdjacentHTML('afterbegin', markUp);
       refs.listOfCatagories.innerHTML = list;
     });
@@ -108,8 +129,48 @@ if (
     }
     const selectedCatagory = evt.target.dataset.name;
     const button = evt.target;
+
+
     if (lastClickedFilterBtn) {
       lastClickedFilterBtn.classList.remove('btn-color');
+    }
+    console.log(button);
+    console.log(selectedCatagory);
+    button.classList.toggle('btn-color');
+    lastClickedFilterBtn = button;
+
+    const encoded = encodeURIComponent(selectedCatagory);
+ 
+    const results = await fetchNewsByCategory(encoded, apiKey);
+    if (window.innerWidth >= 1280) {
+      itemsPerPage = 8;
+    }
+    if (window.innerWidth < 1280 && window.innerWidth >= 780) {
+      itemsPerPage = 7;
+    }
+    if (window.innerWidth < 768) {
+      itemsPerPage = 4;
+    }
+    totalItems = results.results.length;
+    totalPages = results.num_results;
+    console.log("HI!", totalPages);
+  
+    arrForMarkup = results.results;
+    console.log(arrForMarkup);
+    normalizePop(arrForMarkup);
+    console.log(markDataNew);
+    clearMarkup();
+    createMarkup(markDataNew, 1);
+
+  }
+}
+async function fetchNewsByCategory(section, apiKey) {
+
+  const url = `https://api.nytimes.com/svc/news/v3/content/all/${section}.json?&api-key=${apiKey}`;
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch data from ${url}`);
     }
     button.classList.add('btn-color');
     lastClickedFilterBtn = button;
@@ -120,4 +181,51 @@ if (
     ).then(res => res.json());
   }
 }
+
+
+function normalizePop(feed) {
+  const marks = feed.map(el => {
+    function checkoutDescr() {
+      if (el.abstract.length > 120) {
+        return el.abstract.slice(0, 119) + '...';
+      }
+      // return el.abstract;
+    }
+    const descr = checkoutDescr();
+    const dateFormat = new Date(el.published_date);
+    const date = new Intl.DateTimeFormat().format(dateFormat);
+    function ckeckoutTit() {
+      if (el.title.length > 50) {
+        return el.title.slice(0, 49) + '...';
+      }
+      // return el.title;
+    }
+    const title = ckeckoutTit();
+    // console.log(title.length);
+    const source = el.url;
+    function checkoutImg() {
+      if (el.multimedia === null) {
+        return 'https://t3.ftcdn.net/jpg/04/62/93/66/360_F_462936689_BpEEcxfgMuYPfTaIAOC1tCDurmsno7Sp.jpg';
+      }
+      return el.multimedia[2].url;
+    }
+    const image = checkoutImg();
+    function checkoutAlt() {
+      if (el.multimedia === null) {
+        return 'Image is no avalible';
+      }
+      return el.multimedia[0].caption;
+    }
+    const alt = checkoutAlt();
+    const category = el.section;
+
+
+    return { descr, date, title, source, image, alt, category };
+  });
+  // console.log(marks);
+  markDataNew = marks;
+  // console.log(markData);
+  return markDataNew;
+}
+
 export { categoriesForMobile, categoriesForTablet, categoriesForDesktop };

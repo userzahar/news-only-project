@@ -95,7 +95,7 @@ function createMarkup(arr, page) {
     pageMarkup.splice(weatherPos, 0, emptyCard);
     const finishedMkp = pageMarkup.join('');
     // console.log(finishedMkp);
-    // console.log("BEFORE");
+    console.log("BEFORE");
     galleryRef.insertAdjacentHTML('beforeend', finishedMkp);
     mqHandler(); //додана функція для адаптивного відображення.
   }
