@@ -4,7 +4,7 @@ if (
   window.location.pathname === '/index.html'
 ) {
   const getCatagories = fetchCatagories();
-  console.log('FETCH CATS');
+  // console.log('FETCH CATS');
   refs.btnCatagories.addEventListener('click', onBtnCatagoriesClick);
   refs.catagoriesItem.addEventListener('click', selectedCatagory);
   refs.listOfCatagories.addEventListener('click', selectedCatagory);

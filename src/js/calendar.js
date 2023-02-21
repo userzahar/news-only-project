@@ -1,3 +1,4 @@
+
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
@@ -25,5 +26,6 @@ refs.datePickerWrap.addEventListener('click', () => {
   refs.datePickerWrap.classList.toggle('active');
   calendar.open();
 })
+
 
 export { calendar };

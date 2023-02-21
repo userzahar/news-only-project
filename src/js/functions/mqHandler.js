@@ -1,5 +1,6 @@
 
 import onResize from "../resize";
+import { fetchSizer } from "../news-page";
 const screen = {
   mobile: window.matchMedia('(min-width: 300px)'),
   tablet: window.matchMedia('(min-width: 768px)'),
@@ -19,4 +20,5 @@ export function mqHandler() {
   }
 
   onResize(size, toRemove);
+  fetchSizer(size);
 }

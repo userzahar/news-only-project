@@ -9,7 +9,7 @@ export default function onResize(size, toRemove) {
     window.location.pathname === '/' ||
     window.location.pathname === '/index.html'
   ) {
-    for (sizeRemove of toRemove) {
+    for (let sizeRemove of toRemove) {
       refs.name.classList.remove(`catagories__btn-name-${sizeRemove}`);
       refs.listOfCatagories.classList.remove(`catagories__list-${sizeRemove}`);
       refs.catagories.classList.remove(`catagories-${sizeRemove}`);
@@ -25,34 +25,36 @@ export default function onResize(size, toRemove) {
     if (size === 'mobile') {
       refs.catagoriesItem.innerHTML = '';
       categoriesForMobile();
-      console.log('call  categoriesForMobile');
+      // console.log('call  categoriesForMobile');
     }
     if (size === 'tablet') {
       refs.catagoriesItem.innerHTML = '';
       categoriesForTablet();
-      console.log('call  categoriesForTablet');
+      // console.log('call  categoriesForTablet');
     }
     if (size === 'desktop') {
       refs.catagoriesItem.innerHTML = '';
       categoriesForDesktop();
-      console.log('call  categoriesForDesktop');
+      // console.log('call  categoriesForDesktop');
     }
   }
 
-  if (window.location.pathname !== '/read.html') {
-    for (sizeRemove of toRemove) {
+  if ( window.location.pathname === '/' ||
+    window.location.pathname === '/index.html') {
+    for (let sizeRemove of toRemove) {
       refs.galleryList.classList.remove(`gallery__list-${sizeRemove}`);
     }
     refs.galleryList.classList.add(`gallery__list-${size}`);
   }
 
-  for (sizeRemove of toRemove) {
+
+  for (let sizeRemove of toRemove) {
     refs.logo.classList.remove(`logo-${sizeRemove}`);
     refs.navBar.classList.remove(`navbar-${sizeRemove}`);
   }
 
   refs.headerContainer.forEach(hCont => {
-    for (sizeRemove of toRemove) {
+    for (let sizeRemove of toRemove) {
       hCont.classList.remove(`header-container-${sizeRemove}`);
     }
     hCont.classList.add(`header-container-${size}`);
@@ -62,14 +64,14 @@ export default function onResize(size, toRemove) {
   refs.navBar.classList.add(`navbar-${size}`);
 
   refs.container.forEach(cont => {
-    for (sizeRemove of toRemove) {
+    for (let sizeRemove of toRemove) {
       cont.classList.remove(`container-${sizeRemove}`);
     }
     cont.classList.add(`container-${size}`);
   });
   let item = document.querySelectorAll('.gallery__item');
   item.forEach(singleItem => {
-    for (sizeRemove of toRemove) {
+    for (let sizeRemove of toRemove) {
       singleItem.classList.remove(`gallery__item-${sizeRemove}`);
     }
     singleItem.classList.add(`gallery__item-${size}`);
