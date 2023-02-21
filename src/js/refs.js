@@ -13,5 +13,7 @@ export const refs = {
   logo: document.querySelector('.logo'),
   paginationContainer: document.getElementById('pagination'),
   navBar: document.querySelector('.navbar'),
+  errorFind:document.querySelector('.notfind-part'),
+  galleryСontainer:document.querySelector('.gallery__container'),
   // readMoreLink: document.querySelectorAll('gallery__link')
 };

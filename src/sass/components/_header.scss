@@ -149,6 +149,7 @@ body.darkMode {
 
 .search-field {
   margin-left: auto;
+  
   display: flex;
   background-color: transparent;
   height: 31px;
@@ -159,6 +160,7 @@ body.darkMode {
     margin-top: 44px;
     margin-bottom: 31px;
     width: 213px;
+    //  width: 235px;
   }
 
   @media screen and (min-width: $pre_desktop) {
@@ -209,8 +211,9 @@ body.darkMode {
       border-radius: 20px;
 
       input {
-        width: 125px;
-        padding: 8px 0;
+        width: 130px;
+        // width: 213px;
+        padding: 8px;
       }
 
       .search-field__btn {
