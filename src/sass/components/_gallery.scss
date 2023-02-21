@@ -122,27 +122,27 @@
   height: 395px;
 }
 
-.gallery__item-tablet:last-child {
-  display: none;
-}
+// .gallery__item-tablet:last-child {
+//   display: none;
+// }
 
-.gallery__item-mobile:last-child {
-  display: none;
-}
+// .gallery__item-mobile:last-child {
+//   display: none;
+// }
 
-.gallery__item-mobile:nth-last-child(-n + 5) {
-  display: none;
-}
+// .gallery__item-mobile:nth-last-child(-n + 5) {
+//   display: none;
+// }
 
-.gallery__item-mobile {
-  max-width: 288px;
-}
+// .gallery__item-mobile {
+//   max-width: 288px;
+// }
 
-.gallery__item-tablet {
-  max-width: 353px;
-}
+// .gallery__item-tablet {
+//   max-width: 353px;
+// }
 
-.gallery__item-mobile.gallery__item-tablet.gallery__item-desktop {
-  display: block;
-  max-width: 395px;
-}
+// .gallery__item-mobile.gallery__item-tablet.gallery__item-desktop {
+//   display: block;
+//   max-width: 395px;
+// }
