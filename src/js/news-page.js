@@ -10,9 +10,8 @@ import {markData} from './functions/markup';
 // import {itemsPerPage} from './functions/markup';
 import { page } from './functions/markup';
 
-let totalPages = 0;
 export let itemsPerPage = 8;
-export { totalPages };
+export let totalPages = 0;
 
 
 
