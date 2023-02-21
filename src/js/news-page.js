@@ -57,18 +57,23 @@ fetchNews('/svc/mostpopular/v2/viewed/1.json', {
 
 function onSearch(inputData) {
   fetchNews('/svc/search/v2/articlesearch.json', {
-    q: inputData,
-    page: '1',
-  }).then(data => {
-    totalItems = data.response.docs.length;
 
-    totalPages = Math.ceil(data.response.docs.length / itemsPerPage);
-    // console.log(totalItems);
-    if (data.response.docs.length === 0) {
-      // console.log('Empty');
-    }
-    normalizeSrc(data.response.docs);
-    createMarkup(markData, page);
+      q: inputData,
+      page: '1',
+    }).then(data => {
+      totalItems = data.response.docs.length;
+      
+      totalPages = Math.ceil(data.response.docs.length / itemsPerPage);
+      refs.errorFind.classList.add('notfind-part-hidden');
+      // console.log(totalItems);
+      if (data.response.docs.length === 0) {
+          // console.log('Empty');
+          refs.errorFind.classList.remove('notfind-part-hidden');
+          galleryСontainer.innerHTML= "";
+      }
+      normalizeSrc(data.response.docs);
+      createMarkup(markData, page);
+
   });
 };
 

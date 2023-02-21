@@ -1,21 +1,19 @@
 import {initPagination} from '../pagination'
-import { totalPages } from '../news-page';
+import {totalPages} from '../news-page';
+import { mqHandler } from './mqHandler';
 import { itemsPerPage } from '../news-page';
-import {mqHandler} from './mqHandler'
-import { weather } from '../weather';
+import {weather} from '../weather';
 
 let srartIndex = 0;
 let endIndex = 0;
 let weatherPos = 0;
-let itemsPerPage = 8;
 let pagBtnQty = 5;
-// export {itemsPerPage};
 
 let page = 1;
-export { page };
+export {page};
 
 let markData = {};
-export { markData };
+export {markData};
 
 const emptyCard = `<li class="gallery__item">${weather}</li>`;
 const ICON_HEART = '/sprite.f14d31f7.svg#icon-heart';
