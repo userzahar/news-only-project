@@ -141,13 +141,14 @@ function normalizePop(feed) {
       // console.log(image);
       const category = el.section;
   
-      return { descr, date, title, source, image, alt, category };
-    });
+      return { descr, date, title, source, image, alt, category }
+  }
     // console.log(marks);
     markData = marks;
     // console.log(markData);
     return markData;
-  }
+  })
+}
 
 export {normalizePop};
 
@@ -187,11 +188,12 @@ function normalizeSrc(feed) {
       const alt = 'New`s image';
       // console.log(image);
       return { descr, date, title, source, image, alt };
-    });
+    
+  };
     // console.log(marks);
     markData = marks;
     return markData;
-  }
+  })}
   
 export { normalizeSrc };
 

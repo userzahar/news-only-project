@@ -1,4 +1,3 @@
-
 import { mqHandler } from './functions/mqHandler'
 import { refs } from './refs';
 
@@ -11,11 +10,9 @@ import {markData} from './functions/markup';
 // import {itemsPerPage} from './functions/markup';
 import { page } from './functions/markup';
 
-let totalItems = 0;
 let totalPages = 0;
-let itemsPerPage = 8;
+export let itemsPerPage = 8;
 export { totalPages };
-export { itemsPerPage };
 
 
 
