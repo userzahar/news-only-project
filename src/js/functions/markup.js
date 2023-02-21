@@ -1,12 +1,15 @@
-import { initPagination } from '../pagination';
+import {initPagination} from '../pagination'
 import { totalPages } from '../news-page';
-import { mqHandler } from './mqHandler';
+import { itemsPerPage } from '../news-page';
+import {mqHandler} from './mqHandler'
 import { weather } from '../weather';
 
 let srartIndex = 0;
 let endIndex = 0;
+let weatherPos = 0;
 let itemsPerPage = 8;
-export { itemsPerPage };
+let pagBtnQty = 5;
+// export {itemsPerPage};
 
 let page = 1;
 export { page };
@@ -18,15 +21,58 @@ const emptyCard = `<li class="gallery__item">${weather}</li>`;
 const ICON_HEART = '/sprite.f14d31f7.svg#icon-heart';
 const galleryRef = document.querySelector('.gallery__list');
 
-function createMarkup(arr, page) {
-  srartIndex = (page - 1) * itemsPerPage;
-  endIndex = srartIndex + itemsPerPage;
-  initPagination(totalPages);
 
-  const markup = arr.map(el => {
-    return `<li class="gallery__item">
+// const mql = window.matchMedia('(min-width: 1280px)');
+// function screenChange(e) {
+//   if (e.matches) {
+//     weatherPos = 2;
+//     clearMarkup();
+//     createMarkup(markData, page);
+//     console.log(weatherPos);
+//     console.log('bolshe 1280')
+//   } else {
+//     weatherPos = 1;
+//     clearMarkup();
+//     createMarkup(markData, page);
+//     console.log(weatherPos);
+//     console.log('menshe 1280')
+//   }
+// }
+// screenChange(mql);
+// mql.addEventListener('change', screenChange);
+
+
+function createMarkup(arr, page) {
+
+  if (window.innerWidth >= 1280) {
+
+    weatherPos = 2;
+    srartIndex = (page - 1) * itemsPerPage;
+    endIndex = srartIndex + itemsPerPage;
+  
+  }
+  if (window.innerWidth < 1280 && window.innerWidth >= 780) {
+
+    weatherPos = 1;
+    itemsPerPage = 7;
+    srartIndex = (page - 1) * itemsPerPage;
+    endIndex = srartIndex + itemsPerPage;
+  
+  }
+  if (window.innerWidth < 768) {
+    weatherPos = 0;
+    itemsPerPage = 4;
+    srartIndex = (page - 1) * itemsPerPage;
+    endIndex = srartIndex + itemsPerPage;
+    pagBtnQty = 3;
+  }
+
+    initPagination(totalPages, pagBtnQty);
+  
+    const markup = arr.map(el => {
+      return `<li class="gallery__item">
     <article class="gallery__article">
-              <div class="gallery__thumb"> <p class="gallery__category">Job searching</p>
+              <div class="gallery__thumb"> <p class="gallery__category">${el.category}</p>
                 <img class="gallery__img" src="${el.image}" alt="${el.alt}"/>
                  <button type="button" class="gallery__favorite__btn ">
                          <span class="favorite__btn-span">Add to favorite 
@@ -44,19 +90,19 @@ function createMarkup(arr, page) {
                         <a href="${el.source}" target="_blank" rel="noreferrer noopener" class="gallery__link">Read more</a>
                     </div>
                 </article>
-             </li>`;
-  });
-  const pageMarkup = markup.slice(srartIndex, endIndex);
-  // console.log(pageMarkup);
-  pageMarkup.splice(2, 0, emptyCard);
-  const finishedMkp = pageMarkup.join('');
-  // console.log(finishedMkp);
-  console.log('BEFORE');
-  galleryRef.insertAdjacentHTML('beforeend', finishedMkp);
-  mqHandler(); //додана функція для адаптивного відображення.
-}
-
-export { createMarkup };
+             </li>`
+    });
+    const pageMarkup = markup.slice(srartIndex, endIndex);
+    // console.log(pageMarkup);
+    pageMarkup.splice(weatherPos, 0, emptyCard);
+    const finishedMkp = pageMarkup.join('');
+    // console.log(finishedMkp);
+    // console.log("BEFORE");
+    galleryRef.insertAdjacentHTML('beforeend', finishedMkp);
+    mqHandler(); //додана функція для адаптивного відображення.
+  }
+  
+export {createMarkup};
 
 function normalizePop(feed) {
   const marks = feed.map(el => {
@@ -89,27 +135,27 @@ function normalizePop(feed) {
       if (el.media.length === 0) {
         return 'Image is no avalible';
       }
-      return el.media[0].caption;
-    }
-    const alt = checkoutAlt();
-    // console.log(alt);
-    // console.log(image);
 
-    return { descr, date, title, source, image, alt };
-  });
-  // console.log(marks);
-  markData = marks;
-  // console.log(markData);
-  return markData;
-}
+      const alt = checkoutAlt();
+      // console.log(alt);
+      // console.log(image);
+      const category = el.section;
+  
+      return { descr, date, title, source, image, alt, category };
+    });
+    // console.log(marks);
+    markData = marks;
+    // console.log(markData);
+    return markData;
+  }
 
-export { normalizePop };
+export {normalizePop};
 
 function clearMarkup() {
-  galleryRef.innerHTML = '';
-}
-
-export { clearMarkup };
+    galleryRef.innerHTML = '';
+  }
+  
+export {clearMarkup};
 
 function normalizeSrc(feed) {
   const marks = feed.map(el => {
@@ -136,16 +182,16 @@ function normalizeSrc(feed) {
       if (imagePart.length === 0) {
         return 'https://t3.ftcdn.net/jpg/04/62/93/66/360_F_462936689_BpEEcxfgMuYPfTaIAOC1tCDurmsno7Sp.jpg';
       }
-      return `https://static01.nyt.com/${imagePart[0].url}`;
-    }
-    const image = checkoutImg();
-    const alt = 'New`s image';
-    // console.log(image);
-    return { descr, date, title, source, image, alt };
-  });
-  // console.log(marks);
-  markData = marks;
-  return markData;
-}
 
+      const image = checkoutImg();
+      const alt = 'New`s image';
+      // console.log(image);
+      return { descr, date, title, source, image, alt };
+    });
+    // console.log(marks);
+    markData = marks;
+    return markData;
+  }
+  
 export { normalizeSrc };
+
