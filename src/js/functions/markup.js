@@ -1,4 +1,4 @@
-import {initPagination} from '../pagination'
+import { initPagination } from '../pagination';
 import {totalPages} from '../news-page';
 import { mqHandler } from './mqHandler';
 import { itemsPerPage } from '../news-page';
