@@ -57,6 +57,7 @@ fetchNews('/svc/mostpopular/v2/viewed/1.json', {
 
 function onSearch(inputData) {
   fetchNews('/svc/search/v2/articlesearch.json', {
+
     q: inputData,
     page: '1',
   }).then(data => {
@@ -69,6 +70,7 @@ function onSearch(inputData) {
     }
     normalizeSrc(data.response.docs);
     createMarkup(markData, page);
+
   });
 };
 
