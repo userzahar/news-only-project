@@ -97,7 +97,7 @@
 .gallery__favorite__btn {
   @include font(12px, 16px);
   position: absolute;
-  width: 126px;
+  min-width: 126px;
   height: 28px;
   right: 12px;
   bottom: 12px;
