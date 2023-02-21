@@ -21,16 +21,12 @@ if (
   window.location.pathname === '/index.html'
 ) {
   const getCatagories = fetchCatagories();
-  let lastClickedFilterBtn = null;
-  console.log('FETCH CATS');
   // console.log('FETCH CATS');
   refs.btnCatagories.addEventListener('click', onBtnCatagoriesClick);
   refs.catagoriesItem.addEventListener('click', selectedCatagory);
   refs.listOfCatagories.addEventListener('click', selectedCatagory);
 
-  function onBtnCatagoriesClick(e) {
-    e.stopPropagation();
-
+  function onBtnCatagoriesClick() {
     const expanded =
       refs.btnCatagories.getAttribute('aria-expanded') === 'true' || false;
     refs.btnCatagories.classList.toggle('is-open');
@@ -39,28 +35,6 @@ if (
     refs.btnCatagories.classList.toggle('btn-color');
 
     refs.listOfCatagories.classList.toggle('is-open');
-
-    console.log('onclick');
-    const listner = () => {
-      console.log('inlistener');
-      if (refs.btnCatagories.classList.contains('btn-color')) {
-        refs.btnCatagories.classList.remove('btn-color');
-      }
-
-      if (refs.btnCatagories.getAttribute('aria-expanded') === 'true') {
-        refs.btnCatagories.setAttribute('aria-expanded', false);
-      }
-
-      if (refs.listOfCatagories.classList.contains('is-open')) {
-        refs.listOfCatagories.classList.remove('is-open');
-      }
-      if (refs.btnCatagories.classList.contains('is-open')) {
-        refs.btnCatagories.classList.remove('is-open');
-      }
-
-      window.removeEventListener('click', listner);
-    };
-    window.addEventListener('click', listner);
   }
 
   function fetchCatagories() {
@@ -108,7 +82,7 @@ if (
         .join('')}`;
 
       refs.name.textContent = 'Others';
-
+      // refs.name.classList = 'catagories__btn-name-tab';
       refs.catagoriesItem.insertAdjacentHTML('afterbegin', markUp);
 
       refs.listOfCatagories.innerHTML = list;
@@ -139,7 +113,7 @@ if (
         .join('')}`;
 
       refs.name.textContent = 'Others';
-
+      // refs.name.classList = 'catagories__btn-name-tab';
       refs.catagoriesItem.insertAdjacentHTML('afterbegin', markUp);
 
       refs.listOfCatagories.innerHTML = list;
@@ -156,19 +130,33 @@ if (
     const selectedCatagory = evt.target.dataset.name;
 
     const button = evt.target;
-
-    if (lastClickedFilterBtn) {
-      lastClickedFilterBtn.classList.remove('btn-color');
-    }
-
-    button.classList.add('btn-color');
-    lastClickedFilterBtn = button;
-
-    const encoded = encodeURIComponent(selectedCatagory);
     console.log(button);
-    return fetch(
-      `https://api.nytimes.com/svc/news/v3/content/nyt/${encoded}.json?api-key=HunERBoFJkGno2ChxwL9g20UbJbd8EGL`
-    ).then(res => res.json());
+    console.log(selectedCatagory);
+    button.classList.toggle('btn-color');
+
+    const results = await fetchNewsByCategory(selectedCatagory, apiKey);
+    arrForMarkup = results.results;
+    console.log(arrForMarkup);
+    normalizePop(arrForMarkup);
+    clearMarkup();
+    createMarkup(arrForMarkup, 1);
+
+    // return fetch(
+    //   `https://api.nytimes.com/svc/news/v3/content/nyt/${selectedCatagory}.json?api-key=HunERBoFJkGno2ChxwL9g20UbJbd8EGL`
+    // ).then(res => res.json());
+  }
+}
+async function fetchNewsByCategory(section, apiKey) {
+  const url = `https://api.nytimes.com/svc/news/v3/content/all/${section}.json?&api-key=${apiKey}`;
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch data from ${url}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error(error);
+    throw new Error(`Failed to fetch data from ${url}`);
   }
 }
 
