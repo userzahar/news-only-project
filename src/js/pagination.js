@@ -14,8 +14,16 @@ function initPagination(totalPages, pagBtnQty) {
     const currentPage = event.page;
     clearMarkup();
     createMarkup(markData, currentPage);
+    goToTop();
+     
   });
 }
 
+function goToTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  });
+}
 export {initPagination};
 

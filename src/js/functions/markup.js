@@ -67,7 +67,7 @@ function createMarkup(arr, page) {
     pagBtnQty = 3;
   }
 
-    initPagination(totalPages, pagBtnQty);
+  initPagination(totalPages, pagBtnQty);
   
     const markup = arr.map(el => {
       return `<li class="gallery__item">
