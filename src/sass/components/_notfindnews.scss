@@ -6,8 +6,8 @@
     text-align: center;
     align-content: center;
     justify-content: center;
-    margin-bottom: 59px;
-    
+    // margin-bottom: 59px;
+
     @media  screen and (min-width: $tablet) and (max-width: $pre_desktop) {
       /* margin-top: 48px;
        margin-bottom: 101px; */
@@ -33,6 +33,7 @@
     color: var(--text-color);
     font-size: 20px;
     line-height: 27px;
+    margin-bottom: 40px;
 
    
     @media  screen and (min-width: $tablet) and (max-width: $pre_desktop) {
@@ -47,7 +48,7 @@
   }
   
   .notfind-image {
-    /* margin-top: 40px; */
+    //  margin-top: 40px; 
     margin-left: auto;
     margin-right: auto;
     display: flex;
