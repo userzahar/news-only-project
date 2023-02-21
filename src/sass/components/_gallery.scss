@@ -2,8 +2,7 @@
   display: flex;
   justify-content: center;
 
-  @include tablet {
-  }
+  @include tablet {}
 }
 
 .gallery__list {
@@ -100,7 +99,6 @@
   position: absolute;
   width: 126px;
   height: 28px;
-  width: auto;
   right: 12px;
   bottom: 12px;
   color: #111321;
@@ -117,32 +115,6 @@
 .is-hidden {
   visibility: hidden;
 }
-
-// .gallery__favorite {
-//   @include font(12px, 16px);
-//   position: absolute;
-//   display: flex;
-//   height: 28px;
-//   right: 8px;
-//   bottom: 12px;
-//   color: #111321;
-//   background: #ffffff;
-//   border-radius: 20px;
-//   padding: 6px 12px 6px 12px;
-//   justify-content: space-between;
-
-//   & > button {
-//     width: 16px;
-//     height: 16px;
-//     margin-left: 4px;
-//   }
-
-//   & > svg {
-//     position: absolute;
-//     right: 12px;
-//     cursor: pointer;
-//   }
-// }
 
 .gallery__thumb {
   position: relative;
