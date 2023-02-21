@@ -57,6 +57,7 @@ function onSearch(inputData) {
       q: inputData,
       page: '1',
     }).then(data => {
+      console.log(data.response.docs);
       totalItems = data.response.docs.length;
       
       totalPages = Math.ceil(data.response.docs.length / itemsPerPage);
