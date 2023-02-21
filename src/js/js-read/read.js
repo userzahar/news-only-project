@@ -40,3 +40,37 @@ let arrayLs = localStorage.getItem(`articles`);
 arrayLs = JSON.parse(arrayLs);
 console.log(arrayLs);
 // _____________________________________________________
+const btnRead = document.querySelector('#btn_read');
+const galleryNews = document.querySelector('.gallery_date_read');
+console.log(btnRead);
+console.log(galleryNews);
+
+btnRead.addEventListener('click', event => {
+    createMarkupRead(arrayLs)
+})
+
+
+function createMarkupRead(arrayLs) {
+    console.log(arrayLs)
+    const markup = arrayLs.map(el => {
+        return `<li class="gallery__item">
+                     <div class="gallery__thumb"> <p class="gallery__category">Job searching</p>
+                      <img class="gallery__img" src="${el.image}" alt="${el.alt}"/>
+                      <div class='gallery__favorite'><p>Add to favorite</p>
+                      <button type="button"></button>
+                      <svg width='16' height='16'><use href=""></use>
+                      </svg></div></div>
+                      <h3 class="gallery__header">${el.title}</h3>
+                      <p class="gallery__text">${el.descr}</p>
+                      <div class="gallery__item-bottom_wrap">
+                          <span class="gallery__date">${el.date}</span>
+                          <a href="${el.source}" target="_blank" rel="noreferrer noopener" class="gallery__link">Read more</a>
+                      </div>
+                  </li>`;
+
+    }).join('');
+
+    console.log(markup)
+    galleryNews.insertAdjacentHTML('beforeend', markup);
+}
+
