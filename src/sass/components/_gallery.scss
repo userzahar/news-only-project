@@ -6,9 +6,11 @@
 }
 
 .gallery__list {
-  display: flex;
+  flex-direction: row;
   gap: 30px;
-  flex-direction: column;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 
   // @include tablet {
   //     flex-direction: row;
