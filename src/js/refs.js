@@ -21,4 +21,6 @@ export const refs = {
   datePickerWrap: document.querySelector('.wrap__input'),
 
   // readMoreLink: document.querySelectorAll('gallery__link')
+  btnRead: document.querySelector('#btn_read'),
+  galleryNews: document.querySelector('.gallery_date_read'),
 };
