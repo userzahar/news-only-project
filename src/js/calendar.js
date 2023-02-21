@@ -17,13 +17,12 @@ const options = {
     refs.calendarInput.dataset.date = selectedDates[0];
   },
   onChange(selectedDates) {
-    console.log(selectedDates);
+    refs.datePickerWrap.classList.add('active');
   },
 };
 
 const calendar = flatpickr(refs.calendarInput, options);
-refs.datePickerWrap.addEventListener('click', () => {
-  refs.datePickerWrap.classList.toggle('active');
+refs.datePickerWrap.addEventListener('click', () => {  
   calendar.open();
 })
 

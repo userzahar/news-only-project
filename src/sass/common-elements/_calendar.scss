@@ -64,8 +64,11 @@
         color: currentColor;
       }
     }
-     .calendar__arrow__icon-up {
+     .icon-up {
       display: block;
+    }
+     .icon-down {
+      display: none;
     }
   }
   .calendar__icon {
@@ -79,9 +82,7 @@
     position: absolute;
     right: 12px;
     top: 50%;
-    transform: translate(0, -50%);
-
-   
+    transform: translate(0, -50%);   
   }
   .date-picker {
     width: 100%;
@@ -90,6 +91,7 @@
     border: none;
     background-color: transparent;
     font-family: inherit;
+    font-size: 14px;
     line-height: 1.31;
     letter-spacing: 2%;
     text-align: center;
@@ -110,9 +112,13 @@
       max-width: 152px;
     }
   }
-  .calendar__arrow__icon-up{
+  .icon-up{
     display: none;
   }
+
+   .icon-down {
+      fill: #4440f7;
+    }
 }
 .numInputWrapper {
   position: unset !important;
@@ -174,3 +180,14 @@
   background-color: #4440f7 !important;
 }
 
+.darkMode{
+.wrap__input{
+border: 1px solid white;
+}
+.date-picker::placeholder{
+  color:  #F4F4F4;
+}
+.icon-down{
+  fill:#F4F4F4;
+}
+}
