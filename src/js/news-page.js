@@ -1,18 +1,19 @@
 import { mqHandler } from './functions/mqHandler'
 import { refs } from './refs';
 
-import {fetchNews} from './functions/fetchNews';
-import {createMarkup} from './functions/markup';
-import {clearMarkup} from './functions/markup';
-import {normalizePop} from './functions/markup';
-import {normalizeSrc}  from './functions/markup';
-import {markData} from './functions/markup';
+import { fetchNews } from './functions/fetchNews';
+import { createMarkup } from './functions/markup';
+import { clearMarkup } from './functions/markup';
+import { normalizePop } from './functions/markup';
+import { normalizeSrc } from './functions/markup';
+import { markData } from './functions/markup';
 // import {itemsPerPage} from './functions/markup';
 import { page } from './functions/markup';
+import { addToLocalStorate } from './js-read/read'
 
-let totalPages = 0;
+
 export let itemsPerPage = 8;
-export { totalPages };
+export let totalPages = 0;
 
 
 
@@ -27,46 +28,49 @@ inputRef.addEventListener('input', createReq);
 
 
 
-fetchNews('/svc/mostpopular/v2/viewed/1.json', {		
-    }).then(data => {		
-        if (window.innerWidth >= 1280) {
-          itemsPerPage = 8; 
-        }
-        if (window.innerWidth < 1280 && window.innerWidth >= 780) {
-          itemsPerPage = 7;
-        }
-        if (window.innerWidth < 768) {
-          itemsPerPage = 4;
-        }
-        totalItems = data.results.length;
-        totalPages = Math.ceil(data.results.length / itemsPerPage);		
+fetchNews('/svc/mostpopular/v2/viewed/1.json', {
+}).then(data => {
+  if (window.innerWidth >= 1280) {
+    itemsPerPage = 8;
+  }
+  if (window.innerWidth < 1280 && window.innerWidth >= 780) {
+    itemsPerPage = 7;
+  }
+  if (window.innerWidth < 768) {
+    itemsPerPage = 4;
+  }
+  totalItems = data.results.length;
+  totalPages = Math.ceil(data.results.length / itemsPerPage);
 
-        normalizePop(data.results);
-        // console.log(page);
-        createMarkup(markData, page)		
-        // Do something with the data		
-    })		
-    .catch(error => {		
-        console.error(error);		
-        // Handle the error		
-    });
+  normalizePop(data.results);
+  // console.log(page);
+  createMarkup(markData, page)
+
+  addToLocalStorate();
+  // Do something with the data		
+})
+  .catch(error => {
+    console.error(error);
+    // Handle the error		
+  });
 
 
 function onSearch(inputData) {
   fetchNews('/svc/search/v2/articlesearch.json', {
-      q: inputData,
-      page: '1',
-    }).then(data => {
-      console.log(data.response.docs);
-      totalItems = data.response.docs.length;
-      
-      totalPages = Math.ceil(data.response.docs.length / itemsPerPage);
-      // console.log(totalItems);
-      if (data.response.docs.length === 0) {
-          // console.log('Empty');
-      }
-      normalizeSrc(data.response.docs);
-      createMarkup(markData, page);
+
+    q: inputData,
+    page: '1',
+  }).then(data => {
+    totalItems = data.response.docs.length;
+
+    totalPages = Math.ceil(data.response.docs.length / itemsPerPage);
+    // console.log(totalItems);
+    if (data.response.docs.length === 0) {
+      // console.log('Empty');
+    }
+    normalizeSrc(data.response.docs);
+    createMarkup(markData, page);
+
   });
 };
 
@@ -97,7 +101,7 @@ export function fetchSizer(size) {
     console.log('tab')
     // clearMarkup();
     // createMarkup(markData, page);
-  } else if (size === 'mobile'){
+  } else if (size === 'mobile') {
     console.log('mobile')
     // clearMarkup();
     // createMarkup(markData, page);

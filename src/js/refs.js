@@ -12,5 +12,8 @@ export const refs = {
   logo: document.querySelector('.logo'),
   paginationContainer: document.getElementById('pagination'),
   navBar: document.querySelector('.navbar'),
+  calendarInput: document.getElementById('date-picker'),
+  calendarWrap: document.querySelector('.calendar'),
+  datePickerWrap: document.querySelector('.wrap__input'),
   // readMoreLink: document.querySelectorAll('gallery__link')
 };
