@@ -1,4 +1,21 @@
 import { refs } from './refs';
+import {initPagination} from './pagination'
+import { totalPages } from './news-page';
+import { itemsPerPage } from './news-page';
+import { mqHandler } from './functions/mqHandler';
+import { weather } from './weather';
+import { createMarkup } from './functions/markup';
+import {fetchNews} from './functions/fetchNews';
+import {createMarkup} from './functions/markup';
+import {clearMarkup} from './functions/markup';
+// import {normalizePop} from './functions/markup';
+// import {normalizeSrc}  from './functions/markup';
+import {markData} from './functions/markup';
+// import {itemsPerPage} from './functions/markup';
+import { page } from './functions/markup';
+
+let markData = {};
+
 if (
   window.location.pathname === '/' ||
   window.location.pathname === '/index.html'
@@ -103,7 +120,9 @@ if (
     });
   }
 
-  function selectedCatagory(evt) {
+  const apiKey = 'TSw2QdOoFucel7ybh9h7kC4obHmkxxGl';
+
+  async function selectedCatagory(evt) {
     if (evt.target.nodeName !== 'BUTTON') {
       return;
     }
@@ -112,11 +131,83 @@ if (
 
     const button = evt.target;
     console.log(button);
+    console.log(selectedCatagory);
     button.classList.toggle('btn-color');
+ 
+    const results = await fetchNewsByCategory(selectedCatagory, apiKey);
+    arrForMarkup = results.results;
+    console.log(arrForMarkup);
+    normalizePop(arrForMarkup);
+    clearMarkup();
+    createMarkup(arrForMarkup, 1);
 
-    return fetch(
-      `https://api.nytimes.com/svc/news/v3/content/nyt/${selectedCatagory}.json?api-key=HunERBoFJkGno2ChxwL9g20UbJbd8EGL`
-    ).then(res => res.json());
+
+    // return fetch(
+    //   `https://api.nytimes.com/svc/news/v3/content/nyt/${selectedCatagory}.json?api-key=HunERBoFJkGno2ChxwL9g20UbJbd8EGL`
+    // ).then(res => res.json());
   }
+}
+async function fetchNewsByCategory(section, apiKey) {
+
+  const url = `https://api.nytimes.com/svc/news/v3/content/all/${section}.json?&api-key=${apiKey}`;
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch data from ${url}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error(error);
+    throw new Error(`Failed to fetch data from ${url}`);
+  }
+}
+
+function normalizePop(feed) {
+  const marks = feed.map(el => {
+    function checkoutDescr() {
+      if (el.abstract.length > 120) {
+        return el.abstract.slice(0, 119) + '...';
+      }
+      return el.abstract;
+    }
+    const descr = checkoutDescr();
+    const dateFormat = new Date(el.published_date);
+    const date = new Intl.DateTimeFormat().format(dateFormat);
+    function ckeckoutTit() {
+      if (el.title.length > 50) {
+        return el.title.slice(0, 49) + '...';
+      }
+      return el.title;
+    }
+    const title = ckeckoutTit();
+    // console.log(title.length);
+    const source = el.url;
+    function checkoutImg() {
+      if (el.multimedia.length === 0) {
+        return 'https://t3.ftcdn.net/jpg/04/62/93/66/360_F_462936689_BpEEcxfgMuYPfTaIAOC1tCDurmsno7Sp.jpg';
+      }
+      return el.multimedia[0].url;
+    }
+    const image = checkoutImg();
+    function checkoutAlt() {
+      if (el.multimedia.length === 0) {
+        return 'Image is no avalible';
+      }
+      return el.multimedia[0].caption;
+    }
+    const alt = checkoutAlt();
+    console.log("alt=", alt);
+    console.log("image=", image);
+    console.log("title=", title);
+    console.log("source=", source);
+    console.log("descr=", descr);
+    console.log("date=", date);
+
+    return { descr, date, title, source, image, alt };
+  });
+  // console.log(marks);
+  markData = marks;
+  // console.log(markData);
+  return markData;
 }
 export { categoriesForMobile, categoriesForTablet, categoriesForDesktop };
