@@ -1,4 +1,4 @@
-import { mqHandler } from './functions/mqHandler'
+import { mqHandler } from './functions/mqHandler';
 
 const API_KEY = 'pJnhjsndYoXEeiZxcLsx3UMkwINk9PiQ';
 const reqUrl = `https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=${API_KEY}`;
@@ -7,9 +7,9 @@ const galleryRef = document.querySelector('.gallery__list');
 const formRef = document.querySelector('.search-field');
 const inputRef = document.querySelector('#search-field__input');
 const paginationContainer = document.getElementById('pagination');
-const errorFind = document.querySelector(".notfind-part");
+const errorFind = document.querySelector('.notfind-part');
 
-import {weather} from './weather';
+import { weather } from './weather';
 formRef.addEventListener('submit', onSubmit);
 inputRef.addEventListener('input', createReq);
 
@@ -37,26 +37,33 @@ function createMarkup(arr, page) {
 
   const markup = arr.map(el => {
     return `<li class="gallery__item">
-                   <div class="gallery__thumb"> <p class="gallery__category">Job searching</p>
-                    <img class="gallery__img" src="${el.image}" alt="${el.alt}"/>
-                    <div class='gallery__favorite'><p>Add to favorite</p>
-                    <button type="button"></button>
-                    <svg width='16' height='16'><use href="${ICON_HEART}"></use>
-                    </svg></div></div>
+    <article class="gallery__article">
+              <div class="gallery__thumb"> <p class="gallery__category">Job searching</p>
+                <img class="gallery__img" src="${el.image}" alt="${el.alt}"/>
+                 <button type="button" class="gallery__favorite__btn ">
+                         <span class="favorite__btn-span ">Add to favorite 
+                           <svg width='16' height='16'><use href="${ICON_HEART}"></use>
+                    </svg> </span>
+                    <span class="favorite__btn-span is-hidden">Remove from favorite
+                                    <svg width='16' height='16'><use href="${ICON_HEART}"></use>
+                    </svg></span>
+                          </button>         
+                    </div>
                     <h3 class="gallery__header">${el.title}</h3>
                     <p class="gallery__text">${el.descr}</p>
                     <div class="gallery__item-bottom_wrap">
                         <span class="gallery__date">${el.date}</span>
                         <a href="${el.source}" target="_blank" rel="noreferrer noopener" class="gallery__link">Read more</a>
                     </div>
-                </li>`;
+                </article>
+             </li>`;
   });
   const pageMarkup = markup.slice(srartIndex, endIndex);
   // console.log(pageMarkup);
   pageMarkup.splice(2, 0, emptyCard);
   const finishedMkp = pageMarkup.join('');
   // console.log(finishedMkp);
-  console.log("BEFORE");
+  console.log('BEFORE');
   galleryRef.insertAdjacentHTML('beforeend', finishedMkp);
   mqHandler(); //додана функція для адаптивного відображення.
 }
@@ -162,11 +169,11 @@ function onSearch(inputData) {
   const searchUrl = `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${inputData}&api-key=${API_KEY}`;
   fetchNews(searchUrl).then(res => {
     console.log(res.response.docs);
-    errorFind.classList.add('notfind-part-hidden')
+    errorFind.classList.add('notfind-part-hidden');
     if (res.response.docs.length === 0) {
       console.log('Empty');
       errorFind.classList.remove('notfind-part-hidden');
-      clearMarkup()
+      clearMarkup();
     }
     normalizeSrc(res.response.docs);
     createMarkup(markData, page);
@@ -204,7 +211,6 @@ function initPagination(totalPages) {
       moveButton:
         '<a href="#" class="tui-page-btn tui-{{type}}">' +
         '<span class="tui-ico-{{type}}">{{type}}</span>' +
-         
         '</a>',
       disabledMoveButton:
         '<span class="tui-page-btn tui-is-disabled tui-{{type}}">' +
@@ -226,4 +232,3 @@ function initPagination(totalPages) {
     createMarkup(markData, currentPage);
   });
 }
-
