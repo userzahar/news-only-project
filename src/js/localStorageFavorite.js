@@ -20,9 +20,9 @@ function onBtnFavoriteClick(e) {
   const addBtn = btn.childNodes[1];
   const removeBtn = btn.childNodes[3];
   if (!btn) return;
-  console.log(addBtn);
+  // console.log(addBtn);
   checkFavorite();
-  let title = btn.parentNode.parentNode.childNodes[3].textContent;
+  // let title = btn.parentNode.parentNode.childNodes[3].textContent;
   // console.log(title);
   if (removeBtn.classList.contains('is-hidden')) {
     addBtn.classList.add('is-hidden');
@@ -31,11 +31,11 @@ function onBtnFavoriteClick(e) {
     return;
   }
 
-  for (let i = 0; i < favoritesInLocalStorage.length; i += 1) {
-    if (favoritesInLocalStorage[i].title === title) {
-      favoritesInLocalStorage.splice(i, 1);
-    }
-  }
+  // for (let i = 0; i < favoritesInLocalStorage.length; i += 1) {
+  //   if (favoritesInLocalStorage[i].title === title) {
+  //     favoritesInLocalStorage.splice(i, 1);
+  //   }
+  // }
   localStorage.setItem(
     'favoritesNews',
     JSON.stringify(favoritesInLocalStorage)
