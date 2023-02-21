@@ -1,16 +1,16 @@
 import { refs } from './refs';
-import {initPagination} from './pagination'
+import { initPagination } from './pagination';
 import { totalPages } from './news-page';
 import { itemsPerPage } from './news-page';
 import { mqHandler } from './functions/mqHandler';
 import { weather } from './weather';
 import { createMarkup } from './functions/markup';
-import {fetchNews} from './functions/fetchNews';
-import {createMarkup} from './functions/markup';
-import {clearMarkup} from './functions/markup';
+import { fetchNews } from './functions/fetchNews';
+import { createMarkup } from './functions/markup';
+import { clearMarkup } from './functions/markup';
 // import {normalizePop} from './functions/markup';
 // import {normalizeSrc}  from './functions/markup';
-import {markData} from './functions/markup';
+import { markData } from './functions/markup';
 // import {itemsPerPage} from './functions/markup';
 import { page } from './functions/markup';
 
@@ -133,7 +133,7 @@ if (
     console.log(button);
     console.log(selectedCatagory);
     button.classList.toggle('btn-color');
- 
+
     const results = await fetchNewsByCategory(selectedCatagory, apiKey);
     arrForMarkup = results.results;
     console.log(arrForMarkup);
@@ -141,14 +141,12 @@ if (
     clearMarkup();
     createMarkup(arrForMarkup, 1);
 
-
     // return fetch(
     //   `https://api.nytimes.com/svc/news/v3/content/nyt/${selectedCatagory}.json?api-key=HunERBoFJkGno2ChxwL9g20UbJbd8EGL`
     // ).then(res => res.json());
   }
 }
 async function fetchNewsByCategory(section, apiKey) {
-
   const url = `https://api.nytimes.com/svc/news/v3/content/all/${section}.json?&api-key=${apiKey}`;
   try {
     const response = await fetch(url);
@@ -196,12 +194,12 @@ function normalizePop(feed) {
       return el.multimedia[0].caption;
     }
     const alt = checkoutAlt();
-    console.log("alt=", alt);
-    console.log("image=", image);
-    console.log("title=", title);
-    console.log("source=", source);
-    console.log("descr=", descr);
-    console.log("date=", date);
+    console.log('alt=', alt);
+    console.log('image=', image);
+    console.log('title=', title);
+    console.log('source=', source);
+    console.log('descr=', descr);
+    console.log('date=', date);
 
     return { descr, date, title, source, image, alt };
   });
