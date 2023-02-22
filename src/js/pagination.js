@@ -4,7 +4,7 @@ import {markData} from './functions/markup';
 // import {normalizeSrc}  from './functions/markup';
 
 const paginationContainer = document.getElementById('pagination');
-function initPagination(totalPages, pagBtnQty) {
+export function initPagination(totalPages, pagBtnQty) {
   const pagination = new tui.Pagination(paginationContainer, {
     totalItems: totalPages,
     itemsPerPage: 1,
@@ -16,4 +16,4 @@ function initPagination(totalPages, pagBtnQty) {
     createMarkup(markData, currentPage);
   });
 }
-export {initPagination};
+// export {initPagination};

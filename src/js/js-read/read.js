@@ -1,76 +1,85 @@
-function addLeadingZero(d) {
-    return (d < 10) ? '0' + d : d;
+import { toLS } from '../functions/saveToLocalStorage';
+import { readNews } from '../functions/saveToLocalStorage';
+import { mqHandler } from '../functions/mqHandler';
+import { refs } from '../refs';
+import { initPagination } from '../pagination';
+import { createMarkup } from '../functions/markup';
+import { clearMarkup } from '../functions/markup';
+import { markData } from '../functions/markup';
+import { ICON_HEART } from '../functions/markup';
+
+if (window.location.pathname === '/read.html') {
+  window.addEventListener('DOMContentLoaded', event => mqHandler());
+  window.addEventListener('DOMContentLoaded', event => createDiv(readNews));
 }
 
 
-function getUserTime(t = new Date()) {
-    let Y = t.getFullYear();
-    let M = addLeadingZero(t.getMonth() + 1);
-    let D = addLeadingZero(t.getDate());
-    return `${D}/${M}/${Y}`
-};
+let accordeon = {};
+const readingDates = readNews.map(singleArticle => singleArticle.readDate);
+function onlyUnique(value, index, array) {
+  return readingDates.indexOf(value) === index;
+}
 
-console.log(getUserTime());
-// ________________________________________
+function createDiv(readNews) {
+  let unique = readingDates.filter(onlyUnique);
+  const divMarkup = unique
+    .map(el => {
+      return `<div class = "accord dated=${el.toString()}"><p>${el.toString()}</p><ul class = "gallery__list"></ul></div>`;
+    })
+    .join('');
+  refs.readNewsContainer.insertAdjacentHTML('beforeend', divMarkup);
+  accordeon = document.querySelectorAll('.accord');
 
-export function addToLocalStorate() {
-
-    const galleryRef = document.querySelector('.gallery__list')
-
-    galleryRef.addEventListener('click', event => {
-        if (event.target.classList.contains('gallery__link')) {
-            event.preventDefault();
-            const articleEl = event.target.closest('.gallery__item');
-            const article = {
-                title: articleEl.querySelector('.gallery__header').textContent,
-                description: articleEl.querySelector('.gallery__text').textContent,
-                date: articleEl.querySelector('.gallery__date').textContent,
-                source: articleEl.querySelector('.gallery__link').href,
-                img: articleEl.querySelector('.gallery__img').src,
-            };
-            const existingArticles =
-                JSON.parse(localStorage.getItem('articles')) || [];
-            existingArticles.push(article);
-            localStorage.setItem('articles', JSON.stringify(existingArticles));
+  createDailyList(readNews);
+}
+function createDailyList(readNewsArray) {
+    accordeon.forEach((singleDay, currentIndex) => {
+    
+    const dayMarkup = readNewsArray
+      .map(el => {
+       
+          if (singleDay.innerText === el.readDate) {
+           
+          return `<li class="gallery__item">
+    <article class="gallery__article">
+              <div class="gallery__thumb"> 
+                <img class="gallery__img" src="${el.src}" alt="${el.alt}"/>
+                       <button type="button" class="gallery__favorite__btn ">
+                         <span class="favorite__btn-span">Add to favorite 
+                           <svg width='16' height='16'><use href="${ICON_HEART}"></use>
+                    </svg> </span>
+                    <span class="favorite__btn-span remove-btn is-hidden">Remove from favorite
+                                    <svg width='16' height='16'><use href="${ICON_HEART}"></use>
+                    </svg></span>
+                          </button> 
+                    </div>
+                    <h3 class="gallery__header">${el.header}</h3>
+                    <p class="gallery__text">${el.text}</p>
+                    <div class="gallery__item-bottom_wrap">
+                        <span class="gallery__date">${el.readDate}</span>
+                        <a href="${el.source}" target="_blank" rel="noreferrer noopener" class="gallery__link">Read more</a>
+                    </div>
+                </article>
+             </li>`;
         }
-    });
+      })
+            .join('');
+        accordeon[currentIndex].lastElementChild.insertAdjacentHTML('beforeend', dayMarkup)
+    } 
+    );
+    
+    // checks(refs.readNewsContainer.childElementCount)
 }
-// _____________________________________________________
-let arrayLs = localStorage.getItem(`articles`);
-arrayLs = JSON.parse(arrayLs);
-console.log(arrayLs);
-// _____________________________________________________
-const btnRead = document.querySelector('#btn_read');
-const galleryNews = document.querySelector('.gallery_date_read');
-console.log(btnRead);
-console.log(galleryNews);
-
-btnRead.addEventListener('click', event => {
-    createMarkupRead(arrayLs)
-})
-
-
-function createMarkupRead(arrayLs) {
-    console.log(arrayLs)
-    const markup = arrayLs.map(el => {
-        return `<li class="gallery__item">
-                     <div class="gallery__thumb"> <p class="gallery__category">Job searching</p>
-                      <img class="gallery__img" src="${el.image}" alt="${el.alt}"/>
-                      <div class='gallery__favorite'><p>Add to favorite</p>
-                      <button type="button"></button>
-                      <svg width='16' height='16'><use href=""></use>
-                      </svg></div></div>
-                      <h3 class="gallery__header">${el.title}</h3>
-                      <p class="gallery__text">${el.descr}</p>
-                      <div class="gallery__item-bottom_wrap">
-                          <span class="gallery__date">${el.date}</span>
-                          <a href="${el.source}" target="_blank" rel="noreferrer noopener" class="gallery__link">Read more</a>
-                      </div>
-                  </li>`;
-
-    }).join('');
-
-    console.log(markup)
-    galleryNews.insertAdjacentHTML('beforeend', markup);
+ 
+function checks(el) {
+    for (let i = 0; i < el; i++) {
+    let childCounter = refs.readNewsContainer.children[i].children[1].childElementCount
+        if (childCounter < 3) {
+            lessArr = refs.readNewsContainer.children[i].children[1].children;
+            console.log('lessArr', lessArr)
+            for (const el of lessArr) {
+                el.classList.add('less3')
+            }
+        }
+    }
 }
-
