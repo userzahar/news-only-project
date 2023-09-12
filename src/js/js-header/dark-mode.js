@@ -9,13 +9,12 @@ function changeTheme() {
   bodyTheme.classList.toggle('darkMode');
   themeDarkEl.classList.toggle('opacityForDark');
   themeLightEl.classList.toggle('opacityForDark');
-  // localStorage.setItem('theme', 'dark');
+
   if (localStorage.getItem('theme') !== 'dark') {
     localStorage.setItem('theme', 'dark');
   } else {
     localStorage.removeItem('theme');
   }
-  // addDarkClassToHTML();
 }
 
 function addDarkClassToHTML() {
@@ -24,9 +23,6 @@ function addDarkClassToHTML() {
       bodyTheme.classList.add('darkMode');
       changeThemeBtn.checked = true;
     }
-    // else {
-    //   bodyTheme.classList.remove('theme-dark');
-    // }
   } catch (err) {}
 }
 

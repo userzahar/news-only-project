@@ -1,30 +1,64 @@
 import onResize from './js/resize';
+import { mqHandler } from './js/functions/mqHandler';
 import getCatagories from './js/filter';
 import './js/js-header/dark-mode';
 import './js/js-header/mobile-menu';
+// import './js/js-read/read';
+import './js/localStorageFavorite';
 
-import './js/js-read/read';
+// import './js/functions/eventLiCard';
+import { calendar } from './js/calendar';
 
-window.addEventListener('DOMContentLoaded', event => mqHandler());
+import { refs } from './js/refs';
 
-const screen = {
-  mobile: window.matchMedia('(min-width: 480px)'),
-  tablet: window.matchMedia('(min-width: 768px)'),
-  desktop: window.matchMedia('(min-width: 1280px)'),
-};
-
-for (let [scr, mq] of Object.entries(screen)) {
-  if (mq) mq.addEventListener('change', mqHandler);
+if (
+  window.location.pathname === '/favorite.html' ||
+  window.location.pathname === '/read.html'
+) {
+  window.addEventListener('DOMContentLoaded', event => mqHandler());
 }
 
-function mqHandler() {
-  let size = null;
-  let toRemove = [];
-  for (let [scr, mq] of Object.entries(screen)) {
-    if (!mq || mq.matches) {
-      size = scr;
-    } else if (scr !== size) toRemove.push(scr);
+console.log(window.location);
+
+refs.galleryList.addEventListener('click', toLS);
+let readNews;
+let fromLS = localStorage.getItem('read-news');
+if (fromLS) {
+  readNews = JSON.parse(fromLS);
+} else readNews = [];
+
+console.log('ReadNews', readNews);
+// readNews = readNews ? readNews.split('},') : [];
+let count = 0;
+
+// if(readNews){
+// readNews = JSON.parse(readData)
+// }
+
+function toLS(e) {
+  console.log(e.target.nodeName);
+  if (e.target.nodeName !== 'A') {
+    return;
   }
+  count += 1;
+  const readObj = {
+    alt: e.target.parentNode.parentNode.childNodes[1].children[1].alt,
+    header: e.target.parentNode.parentNode.childNodes[3].textContent,
+    src: e.target.parentNode.parentNode.childNodes[1].children[1].src,
+    text: e.target.parentNode.parentNode.childNodes[5].textContent,
+    separator: 'separator',
+  };
+  console.log(
+    'ALT',
+    e.target.parentNode.parentNode.childNodes[1].children[1].alt
+  );
+  console.log('readObj', readObj);
+  readNews.push(readObj);
+  console.log('readNews after push', readNews);
+  const LSReadNewsJSON = JSON.stringify(readNews);
 
-  onResize(size, toRemove);
+  localStorage.setItem('read-news', LSReadNewsJSON);
 }
+
+console.dir(document);
+

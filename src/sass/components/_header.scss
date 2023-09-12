@@ -7,9 +7,34 @@ body.darkMode {
     border-bottom: 1px solid rgba(244, 244, 244, 0.2);
   }
 
+  .catagory__btn-tab {
+    background-color: #ffffff;
+  }
+
+  .catagories__btn-desktop {
+    background-color: #ffffff;
+  }
+
+  .catagories__btn-tablet {
+    background-color: #ffffff;
+  }
+
+  .catagories__btn-mobile {
+    background-color: #ffffff;
+  }
+
   .theme__dark {
     opacity: 1;
   }
+
+  .bar1,
+  .bar2,
+  .bar3 {
+
+    background-color: #fff;
+
+  }
+
 }
 
 .header {
@@ -68,16 +93,31 @@ body.darkMode {
 .navbar {
   display: none;
 
-  @media screen and (min-width: $pre_tablet) {
+  &-mobile {
+    display: none;
+  }
+
+  &-tablet {
     display: flex;
     margin-left: 48px;
     gap: 44px;
   }
 
-  @media screen and (min-width: $pre_desktop) {
+  // @media screen and (min-width: $pre_tablet) {
+  //   display: flex;
+  //   margin-left: 48px;
+  //   gap: 44px;
+  // }
+  &-desktop {
+    display: flex;
     margin-left: 102px;
     gap: 69px;
   }
+
+  // @media screen and (min-width: $pre_desktop) {
+  //   margin-left: 102px;
+  //   gap: 69px;
+  // }
 }
 
 .navbar__item {
@@ -118,6 +158,7 @@ body.darkMode {
 
 .search-field {
   margin-left: auto;
+  
   display: flex;
   background-color: transparent;
   height: 31px;
@@ -128,6 +169,7 @@ body.darkMode {
     margin-top: 44px;
     margin-bottom: 31px;
     width: 213px;
+    //  width: 235px;
   }
 
   @media screen and (min-width: $pre_desktop) {
@@ -146,6 +188,7 @@ body.darkMode {
     border: none;
     background: none;
     outline: none;
+
     &:focus {
       color: var(--text-color);
     }
@@ -156,6 +199,7 @@ body.darkMode {
     &:autofill:active {
       transition: background-color 9999s, color 9999s;
     }
+
     @media screen and (max-width: $pre_tablet) {
       padding: 0;
       transition: 0.4s;
@@ -168,14 +212,17 @@ body.darkMode {
       line-height: calc(24 / 14);
     }
   }
+
   @media screen and (max-width: $pre_tablet) {
     &:hover {
       margin-top: 1px;
       border: 1px solid var(--text-color);
       border-radius: 20px;
+
       input {
-        width: 125px;
-        padding: 8px 0;
+        width: 130px;
+        // width: 213px;
+        padding: 8px;
       }
 
       .search-field__btn {
@@ -247,6 +294,7 @@ body.darkMode {
   .icon {
     fill: var(--text-color);
   }
+
   @media screen and (min-width: $pre_tablet) {
     display: none;
   }
@@ -288,20 +336,20 @@ body.darkMode {
   transition: 0.4s;
 }
 
-input:checked + .slider:before {
+input:checked+.slider:before {
   background-color: var(--white-color);
 }
 
-input:checked + .slider {
+input:checked+.slider {
   background-color: var(--accent-color);
   border: 1px solid var(--white-color);
 }
 
-input:focus + .slider {
+input:focus+.slider {
   box-shadow: 0 0 1px var(--accent-color);
 }
 
-input:checked + .slider:before {
+input:checked+.slider:before {
   -webkit-transform: translateX(26px);
   -ms-transform: translateX(26px);
   transform: translateX(20px);
@@ -318,16 +366,20 @@ input:checked + .slider:before {
 .theme__dark {
   display: none;
 }
+
 .theme__light {
   display: none;
 }
+
 @media screen and (min-width: $desktop) {
   .theme {
     gap: 12px;
   }
+
   .theme__svg {
     display: none;
   }
+
   .theme__dark {
     display: block;
     margin: 0;
@@ -336,21 +388,25 @@ input:checked + .slider:before {
 
     color: var(--switcher-gray-moon);
   }
+
   .theme__light {
     display: block;
     font-size: 18px;
     line-height: 1.3;
   }
+
   .opacityForDark {
     opacity: 0.4;
   }
 }
+
 // input:checked + .theme__dark {
 //   // color: var(--accent-color);
 // }
 .theme__light {
   color: var(--switcher-accent-day);
 }
+
 // .theme__dark:checked + .slider {
 //   // color: var(--accent-color);
 // }
@@ -359,7 +415,42 @@ input:checked + .slider:before {
   // fill: var(--switcher-accent);
   fill: var(--switcher-accent-day);
 }
+
 .moon {
   // fill: var(--switcher-gray);
   fill: var(--switcher-gray-moon);
+}
+
+.burger-menu {
+  display: inline-block;
+  cursor: pointer;
+  top: 50%;
+  left: 50%;
+
+  @media screen and (min-width: 768px) {
+    display: none;
+  }
+}
+
+.bar1,
+.bar2,
+.bar3 {
+  width: 18px;
+  height: 2px;
+  background-color: #333;
+  margin: 3.5px 0;
+  border-radius: 34%;
+}
+
+.icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
+
+.vector-v {
+  width: 0.5712890625em;
 }
