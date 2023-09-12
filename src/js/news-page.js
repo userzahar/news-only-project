@@ -26,7 +26,59 @@ formRef.addEventListener('submit', onSubmit);
 inputRef.addEventListener('input', createReq);
 
 
+const emptyCard = '<li class="gallery__item"></li>';
+let weatherPos = 2;
+let totalItems = 0;
+let srartIndex = 0;
+let endIndex = 0;
+let page = 1;
+let totalPages = 0;
+let itemsPerPage = 8;
+let markData = {};
 
+async function fetchNews(request) {
+  const response = await fetch(request);
+  if (!response.ok) {
+    throw new Error(responce.statusText);
+  }
+  return response.json();
+}
+
+function createMarkup(arr, page) {
+  srartIndex = (page - 1) * itemsPerPage;
+  endIndex = srartIndex + itemsPerPage;
+  initPagination(totalPages);
+
+  const markup = arr.map(el => {
+    return `<li class="gallery__item">
+                    <p class="gallery__category">Job searching</p>
+                    <img class="gallery__img" src="${el.image}" alt="${el.alt}"/>
+                    <div class='gallery__favorite'><p>Add to favorite</p>
+                    <button></button>
+                    <svg width='16' height='16'><use href="../images/sprite.svg#icon-heart"></use>
+                    </svg></div>
+                    <h3 class="gallery__header">${el.title}</h3>
+                    <p class="gallery__text">${el.descr}</p>
+                    <div class="gallery__item-bottom_wrap">
+                        <span class="gallery__date">${el.date}</span>
+                        <a href="${el.source}" target="_blank" rel="noreferrer noopener" class="gallery__link">Read more</a>
+                    </div>
+                </li>`;
+  });
+  const pageMarkup = markup.slice(srartIndex, endIndex);
+  // console.log(pageMarkup);
+  pageMarkup.splice(weatherPos, 0, emptyCard);
+  const finishedMkp = pageMarkup.join('');
+  // console.log(finishedMkp);
+  // console.log(markup);
+  galleryRef.insertAdjacentHTML('beforeend', finishedMkp);
+}
+
+
+
+
+
+function startFetch() {
 
 fetchNews('/svc/mostpopular/v2/viewed/1.json', {
 }).then(data => {
@@ -92,25 +144,54 @@ function onSubmit(e) {
 }
 
 
+  pagination.on('beforeMove', event => {
+    const currentPage = event.page;
+    clearMarkup();
+    createMarkup(markData, currentPage);
+});
+}
 
-export function fetchSizer(size) {
+function onScreenChange() {
+  weatherPos = 1;
+  clearMarkup();
+  createMarkup(markData, page);
+}
 
-  if (size === 'desktop') {
-    console.log('desk')
-    // clearMarkup();
+export { onScreenChange };
+  
+function onCategorySrc(selectedCat) {
+  const searchUrl = `https://api.nytimes.com/svc/news/v3/content/all/${selectedCat}.json?api-key=${API_KEY}&limit=${itemsPerPage}&offset=0`;
+  fetchNews(searchUrl).then(res => {
+    console.log(res);
+    totalPages = res.num_results;
+    console.log(totalPages);
+    // if (res.response.docs.length === 0) {
+    //   console.log('Empty');
+    // }
+    // normalizeSrc(res.response.docs);
     // createMarkup(markData, page);
+  });
+}
 
-  } else if (size === 'tablet') {
-    console.log('tab')
-    // clearMarkup();
-    // createMarkup(markData, page);
-  } else if (size === 'mobile') {
-    console.log('mobile')
-    // clearMarkup();
-    // createMarkup(markData, page);
-  }
+onCategorySrc('arts');
 
-};
+// const mql = window.matchMedia('(min-width: 1280px)');
+
+// function screenChange(e) {
+//   if (e.matches) {
+//     weatherPos = 2;
+//     console.log(weatherPos);
+//     console.log('bolshe 1280')
+//   } else {
+//     weatherPos = 1;
+//     clearMarkup();
+//     createMarkup(markData, page);
+//     console.log(weatherPos);
+//     console.log('menshe 1280')
+//   }
+// }
+
+// screenChange(mql);
+// mql.addEventListener('change', screenChange);
 
 
-// const encoded = encodeURIComponent('crosswords & games'); //crosswords%20&%20games

@@ -4,6 +4,7 @@ import {
   categoriesForTablet,
   categoriesForDesktop,
 } from './filter';
+// import { onScreenChange } from './news-page';
 export default function onResize(size, toRemove) {
   if (
     window.location.pathname === '/' ||
@@ -76,4 +77,19 @@ export default function onResize(size, toRemove) {
     }
     singleItem.classList.add(`gallery__item-${size}`);
   });
+
+  if (size === 'mobile') {
+    // refs.catagoriesItem.innerHTML = '';
+    categoriesForMobile();
+  }
+  if (size === 'tablet') {
+    // refs.catagoriesItem.innerHTML = '';
+    categoriesForTablet();
+    // onScreenChange();
+
+  }
+  if (size === 'desktop') {
+    // refs.catagoriesItem.innerHTML = '';
+    categoriesForDesktop();
+  }
 }
